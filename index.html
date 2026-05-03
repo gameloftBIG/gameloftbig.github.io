@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>若滢 | 柔而不折，澈而不寒</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 全局字体与背景 —— 温柔极简风格 */
+        body {
+            font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8f6f4 0%, #f0ebe7 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #3d3a38;
+            padding: 20px;
+        }
+
+        /* 主容器卡片 */
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 60px 40px;
+            box-shadow: 0 10px 40px rgba(110, 104, 98, 0.1);
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* 名字样式 */
+        .name {
+            font-size: 48px;
+            font-weight: 500;
+            letter-spacing: 6px;
+            color: #4d4642;
+            margin-bottom: 16px;
+        }
+
+        /* 座右铭样式 */
+        .motto {
+            font-size: 18px;
+            color: #7d7670;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        /* 按钮组 */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* 按钮样式 */
+        .btn {
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 400;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1.5px solid transparent;
+            letter-spacing: 1px;
+        }
+
+        /* 书单按钮 */
+        .btn-book {
+            background: #e8e2dd;
+            color: #5c544e;
+        }
+
+        /* 博客按钮 */
+        .btn-blog {
+            background: #d4ece8;
+            color: #46635f;
+        }
+
+        /* 悬停动效 */
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-book:hover {
+            background: #dcd4cd;
+        }
+
+        .btn-blog:hover {
+            background: #c0e0db;
+        }
+
+        /* 淡入动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 500px) {
+            .name {
+                font-size: 38px;
+            }
+            .container {
+                padding: 40px 24px;
+            }
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 个人核心信息 -->
+        <h1 class="name">若滢</h1>
+        <p class="motto">柔而不折，澈而不寒</p>
+
+        <!-- 功能按钮 -->
+        <div class="btn-group">
+            <a href="#" class="btn btn-book">📖 个人书单</a>
+            <a href="#" class="btn btn-blog">✍️ 我的博客</a>
+        </div>
+    </div>
+</body>
+</html>
