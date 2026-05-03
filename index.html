@@ -3,110 +3,364 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>若滢 | 柔而不折，澈而不寒</title>
+    <title>若滢 · gameloftBIG</title>
+
+    <!-- 预加载思源宋体，为中文增添书卷气 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
     <style>
-        * {
+        :root {
+            /* —— 色彩体系：暖调 · 澈而不寒 —— */
+            --bg: #faf6f0;
+            --bg-warm: #f5efe6;
+            --surface: #fdfaf6;
+            --text-primary: #2c2218;
+            --text-secondary: #5c4f40;
+            --text-muted: #8a7a68;
+            --accent-amber: #b8814c;
+            --accent-gold: #c8975e;
+            --accent-warm: #d4a76a;
+            --border-subtle: #e6dcd0;
+            --border-warm: #d9ccba;
+            --shadow-soft: 0 1px 2px rgba(60, 40, 20, 0.04), 0 4px 16px rgba(60, 40, 20, 0.05);
+            --shadow-medium: 0 2px 4px rgba(60, 40, 20, 0.05), 0 8px 28px rgba(60, 40, 20, 0.08);
+            --shadow-lift: 0 4px 8px rgba(60, 40, 20, 0.06), 0 16px 40px rgba(60, 40, 20, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition-ease: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-slow: 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* 全局字体与背景 —— 温柔极简风格 */
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
         body {
-            font-family: "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: linear-gradient(135deg, #f8f6f4 0%, #f0ebe7 100%);
+            font-family: 'Noto Serif SC', 'STSong', 'Songti SC', 'SimSun', 'KaiTi', 'STKaiti', '楷体', serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            color: #3d3a38;
-            padding: 20px;
-        }
-
-        /* 主容器卡片 */
-        .container {
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 60px 40px;
-            box-shadow: 0 10px 40px rgba(110, 104, 98, 0.1);
-            animation: fadeIn 1.2s ease-out;
-        }
-
-        /* 名字样式 */
-        .name {
-            font-size: 48px;
-            font-weight: 500;
-            letter-spacing: 6px;
-            color: #4d4642;
-            margin-bottom: 16px;
-        }
-
-        /* 座右铭样式 */
-        .motto {
-            font-size: 18px;
-            color: #7d7670;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 50px;
+            position: relative;
+            overflow-x: hidden;
             line-height: 1.6;
+            padding: 24px;
+            /* 纸张纹理的微妙噪点 */
+            background-image:
+                radial-gradient(ellipse at 30% 20%, rgba(200, 170, 140, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 60%, rgba(190, 160, 130, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(180, 150, 120, 0.04) 0%, transparent 40%),
+                radial-gradient(ellipse at 85% 15%, rgba(210, 185, 150, 0.05) 0%, transparent 45%);
         }
 
-        /* 按钮组 */
-        .btn-group {
+        /* —— 背景光晕：水墨在水中晕染的意象 —— */
+        .bg-aura {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-aura::before {
+            content: '';
+            position: absolute;
+            top: -15%;
+            left: 55%;
+            width: 55vw;
+            height: 55vw;
+            max-width: 700px;
+            max-height: 700px;
+            background: radial-gradient(circle at center,
+                    rgba(195, 155, 115, 0.10) 0%,
+                    rgba(200, 165, 125, 0.06) 25%,
+                    rgba(210, 180, 145, 0.03) 50%,
+                    transparent 70%);
+            border-radius: 50%;
+            filter: blur(50px);
+            animation: auraBreathe 10s ease-in-out infinite;
+        }
+
+        .bg-aura::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            left: 20%;
+            width: 40vw;
+            height: 40vw;
+            max-width: 500px;
+            max-height: 500px;
+            background: radial-gradient(circle at center,
+                    rgba(185, 145, 110, 0.07) 0%,
+                    rgba(190, 155, 120, 0.04) 30%,
+                    transparent 65%);
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: auraBreathe 10s ease-in-out infinite;
+            animation-delay: -5s;
+        }
+
+        @keyframes auraBreathe {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            30% {
+                transform: scale(1.08);
+                opacity: 1;
+            }
+            60% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+            85% {
+                transform: scale(1.03);
+                opacity: 0.9;
+            }
+        }
+
+        /* —— 主容器 —— */
+        main {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 720px;
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        /* —— 水波涟漪装饰环 —— */
+        .ripple-decoration {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin-bottom: -20px;
+            z-index: 0;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
         }
 
-        /* 按钮样式 */
-        .btn {
-            padding: 14px 36px;
-            border-radius: 50px;
-            font-size: 16px;
+        .ripple-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(180, 150, 120, 0.35);
+            animation: ripplePulse 8s ease-in-out infinite;
+        }
+
+        .ripple-ring:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            border-width: 1.2px;
+            border-color: rgba(185, 140, 100, 0.4);
+        }
+
+        .ripple-ring:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            animation-delay: -2s;
+            border-width: 0.9px;
+            border-color: rgba(175, 145, 115, 0.3);
+        }
+
+        .ripple-ring:nth-child(3) {
+            width: 140px;
+            height: 140px;
+            animation-delay: -4s;
+            border-width: 0.7px;
+            border-color: rgba(170, 140, 110, 0.25);
+        }
+
+        .ripple-ring:nth-child(4) {
+            width: 175px;
+            height: 175px;
+            animation-delay: -6s;
+            border-width: 0.5px;
+            border-color: rgba(160, 135, 105, 0.18);
+        }
+
+        @keyframes ripplePulse {
+            0%,
+            100% {
+                transform: scale(0.92);
+                opacity: 0.55;
+            }
+            35% {
+                transform: scale(1.06);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(0.97);
+                opacity: 0.7;
+            }
+        }
+
+        /* 涟漪中心的光点 */
+        .ripple-core {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(185, 140, 100, 0.5);
+            position: relative;
+            z-index: 2;
+            animation: coreGlow 4s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(185, 140, 100, 0.25), 0 0 50px rgba(185, 140, 100, 0.10);
+        }
+
+        @keyframes coreGlow {
+            0%,
+            100% {
+                box-shadow: 0 0 15px rgba(185, 140, 100, 0.2), 0 0 35px rgba(185, 140, 100, 0.08);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(185, 140, 100, 0.35), 0 0 55px rgba(185, 140, 100, 0.15);
+                transform: scale(1.3);
+            }
+        }
+
+        /* —— 名字区域 —— */
+        .name-section {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .name-cn {
+            font-family: 'Noto Serif SC', 'STSong', 'Songti SC', 'KaiTi', 'STKaiti', '楷体', serif;
+            font-size: clamp(3.8rem, 8vw, 6rem);
+            font-weight: 300;
+            letter-spacing: 0.12em;
+            color: var(--text-primary);
+            line-height: 1.1;
+            position: relative;
+            display: inline-block;
+            transition: color var(--transition-ease), text-shadow var(--transition-ease);
+            cursor: default;
+            user-select: none;
+        }
+
+        .name-cn::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 10%;
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(180, 140, 100, 0.4) 20%,
+                    rgba(180, 140, 100, 0.55) 50%,
+                    rgba(180, 140, 100, 0.4) 80%,
+                    transparent);
+            transform: scaleX(0.7);
+            transition: transform var(--transition-slow), opacity var(--transition-slow);
+            opacity: 0.6;
+        }
+
+        .name-cn:hover::after {
+            transform: scaleX(1);
+            opacity: 0.9;
+        }
+        .name-cn:hover {
+            text-shadow: 0 2px 30px rgba(170, 130, 90, 0.12);
+        }
+
+        .name-en {
+            font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Consolas', 'Menlo', monospace;
+            font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+            font-weight: 300;
+            letter-spacing: 0.28em;
+            color: var(--text-muted);
+            text-transform: lowercase;
+            transition: color var(--transition-ease), letter-spacing var(--transition-slow);
+            cursor: default;
+            user-select: none;
+        }
+        .name-en:hover {
+            color: var(--text-secondary);
+            letter-spacing: 0.35em;
+        }
+
+        /* —— 格言 —— */
+        .motto {
+            font-family: 'Noto Serif SC', 'STSong', 'Songti SC', 'KaiTi', 'STKaiti', '楷体', serif;
+            font-size: clamp(1.05rem, 1.8vw, 1.25rem);
             font-weight: 400;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1.5px solid transparent;
-            letter-spacing: 1px;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+            margin-top: 18px;
+            position: relative;
+            padding: 0 16px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            cursor: default;
+            user-select: none;
+            transition: color var(--transition-ease);
+        }
+        .motto:hover {
+            color: var(--text-primary);
         }
 
-        /* 书单按钮 */
-        .btn-book {
-            background: #e8e2dd;
-            color: #5c544e;
+        /* 格言两侧的装饰细线 */
+        .motto::before,
+        .motto::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 36px;
+            height: 0.6px;
+            background: rgba(180, 145, 110, 0.5);
+            transition: width var(--transition-slow), opacity var(--transition-slow);
+        }
+        .motto::before {
+            right: calc(100% + 14px);
+            transform: translateY(-50%);
+        }
+        .motto::after {
+            left: calc(100% + 14px);
+            transform: translateY(-50%);
+        }
+        .motto:hover::before,
+        .motto:hover::after {
+            width: 50px;
+            opacity: 0.8;
         }
 
-        /* 博客按钮 */
-        .btn-blog {
-            background: #d4ece8;
-            color: #46635f;
-        }
-
-        /* 悬停动效 */
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .btn-book:hover {
-            background: #dcd4cd;
-        }
-
-        .btn-blog:hover {
-            background: #c0e0db;
-        }
-
-        /* 淡入动画 */
-        @keyframes fadeIn {
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(24px);
             }
             to {
                 opacity: 1;
@@ -114,35 +368,424 @@
             }
         }
 
-        /* 移动端适配 */
-        @media (max-width: 500px) {
-            .name {
-                font-size: 38px;
+        /* —— 分隔符 —— */
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(175, 145, 115, 0.5),
+                    rgba(175, 145, 115, 0.5),
+                    transparent);
+            margin: 28px auto 32px;
+            border: none;
+            animation: fadeInUp 1s ease-out 0.35s both;
+        }
+
+        /* —— 功能卡片区域 —— */
+        .cards-section {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            max-width: 520px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .card-link {
+            text-decoration: none;
+            flex: 1;
+            min-width: 180px;
+            max-width: 240px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 28px 24px 26px;
+            background: var(--surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition:
+                border-color var(--transition-ease),
+                box-shadow var(--transition-ease),
+                transform var(--transition-spring),
+                background var(--transition-ease);
+            box-shadow: var(--shadow-soft);
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+        .card-link:focus-visible {
+            border-color: var(--accent-amber);
+            box-shadow: var(--shadow-medium), 0 0 0 3px rgba(185, 140, 100, 0.15);
+        }
+
+        /* 卡片hover时的涟漪光效 */
+        .card-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(195, 155, 115, 0.12) 0%,
+                    transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width var(--transition-slow), height var(--transition-slow);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .card-link:hover {
+            border-color: var(--border-warm);
+            box-shadow: var(--shadow-lift);
+            transform: translateY(-3px);
+            background: #fefcf9;
+        }
+        .card-link:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        .card-link:active {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-medium);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+
+        /* 卡片图标 */
+        .card-icon {
+            position: relative;
+            z-index: 1;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform var(--transition-spring);
+        }
+        .card-link:hover .card-icon {
+            transform: scale(1.08);
+        }
+        .card-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--accent-amber);
+            fill: none;
+            stroke-width: 1.4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke var(--transition-ease), stroke-width var(--transition-ease);
+        }
+        .card-link:hover .card-icon svg {
+            stroke: var(--accent-gold);
+            stroke-width: 1.6;
+        }
+
+        /* 卡片文字 */
+        .card-label {
+            position: relative;
+            z-index: 1;
+            font-family: 'Noto Serif SC', 'STSong', 'Songti SC', 'KaiTi', 'STKaiti', '楷体', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            color: var(--text-primary);
+            transition: color var(--transition-ease);
+        }
+        .card-link:hover .card-label {
+            color: #1a1008;
+        }
+
+        .card-hint {
+            position: relative;
+            z-index: 1;
+            font-family: 'Noto Serif SC', 'STSong', 'Songti SC', 'KaiTi', 'STKaiti', '楷体', serif;
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            text-align: center;
+            transition: color var(--transition-ease);
+        }
+        .card-link:hover .card-hint {
+            color: var(--text-secondary);
+        }
+
+        /* 卡片内的微小箭头 */
+        .card-arrow {
+            position: relative;
+            z-index: 1;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: opacity var(--transition-ease), transform var(--transition-spring);
+        }
+        .card-arrow svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--accent-amber);
+            fill: none;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .card-link:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* —— 页脚 —— */
+        footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 48px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.65s both;
+        }
+        footer p {
+            font-family: 'Inter', 'Noto Serif SC', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            opacity: 0.7;
+            transition: opacity var(--transition-ease);
+        }
+        footer p:hover {
+            opacity: 1;
+        }
+
+        /* —— 响应式 —— */
+        @media (max-width: 600px) {
+            body {
+                padding: 16px;
+                justify-content: flex-start;
+                padding-top: 8vh;
             }
-            .container {
-                padding: 40px 24px;
+
+            .ripple-decoration {
+                width: 120px;
+                height: 120px;
+                margin-bottom: -16px;
             }
-            .btn-group {
+            .ripple-ring:nth-child(1) {
+                width: 44px;
+                height: 44px;
+            }
+            .ripple-ring:nth-child(2) {
+                width: 74px;
+                height: 74px;
+            }
+            .ripple-ring:nth-child(3) {
+                width: 104px;
+                height: 104px;
+            }
+            .ripple-ring:nth-child(4) {
+                width: 130px;
+                height: 130px;
+            }
+            .ripple-core {
+                width: 7px;
+                height: 7px;
+            }
+
+            .name-cn {
+                font-size: clamp(2.8rem, 10vw, 4rem);
+                letter-spacing: 0.1em;
+            }
+            .name-en {
+                font-size: 0.8rem;
+                letter-spacing: 0.22em;
+            }
+            .motto {
+                font-size: 0.95rem;
+                letter-spacing: 0.14em;
+                margin-top: 14px;
+            }
+            .motto::before,
+            .motto::after {
+                width: 20px;
+            }
+            .motto:hover::before,
+            .motto:hover::after {
+                width: 28px;
+            }
+
+            .divider {
+                width: 44px;
+                margin: 22px auto 26px;
+            }
+
+            .cards-section {
                 flex-direction: column;
                 align-items: center;
+                gap: 14px;
+                max-width: 100%;
             }
-            .btn {
-                width: 80%;
+            .card-link {
+                max-width: 100%;
+                width: 100%;
+                flex-direction: row;
+                justify-content: center;
+                gap: 16px;
+                padding: 20px 22px;
+                min-width: unset;
+            }
+            .card-icon {
+                width: 36px;
+                height: 36px;
+            }
+            .card-label {
+                font-size: 1rem;
+            }
+            .card-hint {
+                font-size: 0.75rem;
+            }
+            .card-arrow {
+                width: 16px;
+                height: 16px;
+            }
+
+            footer {
+                margin-top: 36px;
+            }
+
+            .bg-aura::before {
+                width: 70vw;
+                height: 70vw;
+                top: -8%;
+                left: 40%;
+            }
+            .bg-aura::after {
+                width: 55vw;
+                height: 55vw;
+                bottom: -5%;
+                left: 10%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .name-cn {
+                font-size: 2.4rem;
+            }
+            .motto {
+                font-size: 0.85rem;
+                letter-spacing: 0.1em;
+            }
+            .card-link {
+                padding: 16px 18px;
+                gap: 12px;
+            }
+            .card-icon {
+                width: 30px;
+                height: 30px;
+            }
+            .card-label {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 针对偏好减少动画的用户 */
+        @media (prefers-reduced-motion: reduce) {
+            .bg-aura::before,
+            .bg-aura::after,
+            .ripple-ring,
+            .ripple-core,
+            .card-link::before {
+                animation: none !important;
+                transition: none !important;
+            }
+            .card-link:hover {
+                transform: none;
+            }
+            .card-link:hover::before {
+                width: 0;
+                height: 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- 个人核心信息 -->
-        <h1 class="name">若滢</h1>
-        <p class="motto">柔而不折，澈而不寒</p>
 
-        <!-- 功能按钮 -->
-        <div class="btn-group">
-            <a href="#" class="btn btn-book">📖 个人书单</a>
-            <a href="#" class="btn btn-blog">✍️ 我的博客</a>
+    <!-- 背景光晕：水墨在水中晕染 -->
+    <div class="bg-aura" aria-hidden="true"></div>
+
+    <!-- 主内容 -->
+    <main>
+        <!-- 水波涟漪装饰 -->
+        <div class="ripple-decoration" aria-hidden="true">
+            <div class="ripple-ring"></div>
+            <div class="ripple-ring"></div>
+            <div class="ripple-ring"></div>
+            <div class="ripple-ring"></div>
+            <div class="ripple-core"></div>
         </div>
-    </div>
+
+        <!-- 名字区域 -->
+        <section class="name-section">
+            <h1 class="name-cn" title="若滢">若&thinsp;滢</h1>
+            <span class="name-en">gameloftBIG</span>
+            <p class="motto">柔而不折，澈而不寒</p>
+        </section>
+
+        <!-- 分隔符 -->
+        <hr class="divider" aria-hidden="true">
+
+        <!-- 功能卡片：书单 & 博客 -->
+        <section class="cards-section">
+            <!-- 书单入口 -->
+            <a href="#booklist" class="card-link" title="个人书单" aria-label="浏览个人书单">
+                <span class="card-icon">
+                    <!-- 简约书本图标：柔和的曲线 + 坚定的直线 -->
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 38V10C8 8.9 8.9 8 10 8H18C20.2 8 22 9.8 22 12V40C22 38 20.5 36.5 18 36H10C8.9 36 8 36.9 8 38Z" />
+                        <path d="M40 38V10C40 8.9 39.1 8 38 8H30C27.8 8 26 9.8 26 12V40C26 38 27.5 36.5 30 36H38C39.1 36 40 36.9 40 38Z" />
+                        <line x1="22" y1="12" x2="26" y2="12" opacity="0.6" />
+                        <line x1="22.5" y1="18" x2="25.5" y2="18" opacity="0.4" />
+                        <line x1="23" y1="24" x2="25" y2="24" opacity="0.3" />
+                    </svg>
+                </span>
+                <span class="card-label">书 单</span>
+                <span class="card-hint">阅读印记</span>
+                <span class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 5L13 10L7 15" />
+                    </svg>
+                </span>
+            </a>
+
+            <!-- 博客入口 -->
+            <a href="#blog" class="card-link" title="个人博客" aria-label="浏览个人博客">
+                <span class="card-icon">
+                    <!-- 简约笔触图标：流动的线条感 -->
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M32 6L42 16L38 20L28 10L32 6Z" />
+                        <path d="M26 12L36 22L16 42H6V32L26 12Z" opacity="0.85" />
+                        <line x1="10" y1="36" x2="18" y2="28" opacity="0.5" stroke-width="1" />
+                        <circle cx="32" cy="8" r="1.5" fill="currentColor" stroke="none" opacity="0.7" />
+                    </svg>
+                </span>
+                <span class="card-label">博 客</span>
+                <span class="card-hint">思绪留痕</span>
+                <span class="card-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 5L13 10L7 15" />
+                    </svg>
+                </span>
+            </a>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <p>若滢 &copy; 2026 &nbsp;·&nbsp; 柔而不折，澈而不寒</p>
+    </footer>
+
 </body>
 </html>
