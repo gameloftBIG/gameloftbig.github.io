@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>博客 - RuoYing</title>
+  <title>思绪 - RuoYing</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
   <link rel="apple-touch-icon" href="favicon-512x512.png">
@@ -25,7 +25,7 @@
       <ul class="nav-links">
         <li><a href="index.html">首页</a></li>
         <li><a href="about.html">关于</a></li>
-        <li><a href="blog.html" class="active">博客</a></li>
+        <li><a href="blog.html" class="active">思绪</a></li>
         <li><a href="notes.html">笔记</a></li>
         <li><a href="gallery.html">相册</a></li>
         <li><a href="contact.html">联系</a></li>
@@ -40,7 +40,7 @@
 
   <section class="blog-section">
     <div class="container">
-      <h1 class="section-title fade-in">博客文章</h1>
+      <h1 class="section-title fade-in">思绪文章</h1>
       <p class="section-subtitle fade-in delay-1">记录生活，分享感悟</p>
 
       <div class="category-filter fade-in delay-2">
@@ -49,9 +49,26 @@
       </div>
 
       <div class="blog-grid">
+        <!-- 六级考试文章 -->
+        <article class="blog-card" onclick="window.location.href='posts/纪念电池毁了我的第一次六级考试.html'">
+          <div class="blog-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="blog-image-overlay">
+              <i class="fas fa-cloud-rain"></i>
+            </div>
+          </div>
+          <div class="blog-content">
+            <span class="blog-category">生活感悟</span>
+            <h3 class="blog-title">纪念电池毁了我的第一次六级考试</h3>
+            <p class="blog-excerpt">昨天到今天过得浑浑噩噩的，不知道要怎么走出来，仿佛让我回到了那个失败的我...</p>
+            <div class="blog-meta">
+              <span><i class="far fa-calendar"></i> 2026年6月13日</span>
+            </div>
+          </div>
+        </article>
+
         <div class="empty-state fade-in">
           <i class="fas fa-pen-fancy"></i>
-          <h3>博客正在建设中...</h3>
+          <h3>思绪正在建设中...</h3>
           <p>精彩内容即将呈现，敬请期待！</p>
         </div>
       </div>
@@ -60,12 +77,12 @@
 
   <footer>
     <div class="container" style="padding: 50px 20px; text-align: center; border-top: 1px solid var(--glass-border);">
-      <p>&copy; 2026 RuoYing. All rights reserved.</p>
+      <p>&copy; 2026 若滢. All rights reserved.</p>
     </div>
   </footer>
 
   <script src="js/shooting-stars.js"></script>
-<script src="js/main.js"></script>
+  <script src="js/main.js"></script>
   <script src="js/blog.js"></script>
 </body>
 

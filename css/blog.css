@@ -9,19 +9,21 @@
 }
 
 .blog-card {
-  background: var(--card-bg);
+  background: rgba(20, 10, 40, 0.6);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(150, 100, 200, 0.3);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
 }
 
 .blog-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(208, 0, 255, 0.3);
-  box-shadow: var(--glow);
+  transform: translateY(-8px);
+  border-color: rgba(180, 130, 220, 0.5);
+  box-shadow: 0 15px 40px rgba(120, 80, 180, 0.3),
+    0 0 30px rgba(180, 130, 220, 0.15);
+  background: rgba(30, 15, 50, 0.8);
 }
 
 .blog-card .blog-image {
@@ -40,6 +42,21 @@
   background: radial-gradient(ellipse at 30% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
 }
 
+.blog-card .blog-image .blog-image-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.blog-card:hover .blog-image .blog-image-overlay {
+  transform: translate(-50%, -50%) scale(1.1);
+  color: rgba(255, 255, 255, 0.5);
+}
+
 .blog-card .blog-content {
   padding: 25px;
 }
@@ -47,22 +64,38 @@
 .blog-card .blog-category {
   display: inline-block;
   padding: 5px 15px;
-  background: rgba(106, 0, 255, 0.15);
+  background: rgba(150, 100, 220, 0.2);
   border-radius: 20px;
   font-size: 0.85rem;
-  color: var(--purple);
+  color: #d4b8ff;
   margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.blog-card:hover .blog-category {
+  background: rgba(180, 130, 240, 0.3);
+  color: #e8d4ff;
 }
 
 .blog-card h3 {
   font-size: 1.3rem;
   margin-bottom: 15px;
-  color: var(--text-main);
   line-height: 1.4;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 20px rgba(200, 160, 255, 0.3);
+}
+
+.blog-card:hover h3 {
+  background: linear-gradient(135deg, #d4b8ff 0%, #ffb8e8 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
 }
 
 .blog-card p {
-  color: var(--text-secondary);
+  color: rgba(200, 180, 220, 0.9);
   font-size: 0.95rem;
   margin-bottom: 20px;
   display: -webkit-box;
@@ -70,18 +103,33 @@
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.blog-card:hover p {
+  color: rgba(220, 200, 230, 1);
 }
 
 .blog-card .blog-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: var(--text-secondary);
+  color: rgba(180, 160, 200, 0.8);
   font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.blog-card:hover .blog-meta {
+  color: rgba(200, 180, 220, 1);
 }
 
 .blog-card .blog-meta i {
   margin-right: 5px;
+  color: rgba(180, 150, 210, 0.7);
+}
+
+.blog-card:hover .blog-meta i {
+  color: rgba(200, 170, 230, 0.9);
 }
 
 .pagination {
@@ -95,21 +143,22 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--card-bg);
-  border: 1px solid var(--glass-border);
+  background: rgba(20, 10, 40, 0.6);
+  border: 1px solid rgba(150, 100, 200, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
+  color: rgba(200, 180, 220, 0.9);
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .pagination a:hover,
 .pagination a.active {
-  background: linear-gradient(135deg, var(--purple), var(--pink));
-  color: white;
-  border-color: transparent;
+  background: linear-gradient(135deg, rgba(150, 100, 220, 0.6), rgba(200, 120, 180, 0.6));
+  color: #ffffff;
+  border-color: rgba(180, 130, 220, 0.5);
+  box-shadow: 0 0 20px rgba(150, 100, 220, 0.3);
 }
 
 .category-filter {
@@ -123,9 +172,9 @@
 .category-filter button {
   padding: 10px 25px;
   border-radius: 30px;
-  border: 1px solid var(--glass-border);
-  background: var(--card-bg);
-  color: var(--text-secondary);
+  border: 1px solid rgba(150, 100, 200, 0.3);
+  background: rgba(20, 10, 40, 0.6);
+  color: rgba(200, 180, 220, 0.9);
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
@@ -133,9 +182,10 @@
 
 .category-filter button:hover,
 .category-filter button.active {
-  background: linear-gradient(135deg, var(--purple), var(--pink));
-  color: white;
-  border-color: transparent;
+  background: linear-gradient(135deg, rgba(150, 100, 220, 0.6), rgba(200, 120, 180, 0.6));
+  color: #ffffff;
+  border-color: rgba(180, 130, 220, 0.5);
+  box-shadow: 0 0 20px rgba(150, 100, 220, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -149,26 +199,32 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 80px 20px;
-  background: var(--card-bg);
+  background: rgba(20, 10, 40, 0.6);
   backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(150, 100, 200, 0.3);
   border-radius: var(--radius);
 }
 
 .empty-state i {
   font-size: 4rem;
-  color: var(--purple);
+  color: rgba(180, 140, 220, 0.6);
   margin-bottom: 20px;
-  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.empty-state:hover i {
+  color: rgba(200, 160, 240, 0.8);
+  transform: scale(1.1);
 }
 
 .empty-state h3 {
   font-size: 1.8rem;
-  color: var(--text-main);
+  color: rgba(220, 200, 240, 1);
   margin-bottom: 10px;
+  text-shadow: 0 0 20px rgba(200, 160, 255, 0.3);
 }
 
 .empty-state p {
-  color: var(--text-secondary);
+  color: rgba(200, 180, 220, 0.9);
   font-size: 1rem;
 }

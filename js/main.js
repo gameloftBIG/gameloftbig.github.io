@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     SiteData.saveData(currentData);
   }
 
-  // 更新博客卡片浏览量
+  // 更新思绪卡片浏览量
   const blogCards = document.querySelectorAll('.blog-card');
   blogCards.forEach(card => {
     const viewSpan = card.querySelector('.views-count');
@@ -299,11 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
         fadeIn();
         audioPlayer.play();
         playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        playBtn.classList.add('playing');
       } else {
         fadeOut(() => {
           audioPlayer.pause();
         });
         playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        playBtn.classList.remove('playing');
       }
     });
 
@@ -388,6 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
     audioPlayer.addEventListener('ended', () => {
       fadeOut();
       playBtn.innerHTML = '<i class="fas fa-play"></i>';
+      playBtn.classList.remove('playing');
     });
   }
 
