@@ -49,7 +49,7 @@ class ShootingStars {
   createStars() {
     const starCount = Math.floor((this.canvas.width * this.canvas.height) / 3000);
     this.stars = [];
-    
+
     for (let i = 0; i < starCount; i++) {
       this.stars.push({
         x: Math.random() * this.canvas.width,
@@ -64,13 +64,13 @@ class ShootingStars {
 
   createMeteor() {
     const meteor = {
-      x: Math.random() * this.canvas.width * 1.2 - this.canvas.width * 0.1,
-      y: -50,
-      length: Math.random() * 80 + 40,
-      speed: Math.random() * 8 + 5,
-      angle: Math.PI / 4 + (Math.random() - 0.5) * 0.3,
-      opacity: Math.random() * 0.6 + 0.4,
-      width: Math.random() * 3 + 1,
+      x: this.canvas.width * 0.8 + Math.random() * this.canvas.width * 0.3,
+      y: -50 - Math.random() * 100,
+      length: Math.random() * 100 + 60,
+      speed: Math.random() * 10 + 6,
+      angle: Math.PI * 0.75 + (Math.random() - 0.5) * 0.2,
+      opacity: Math.random() * 0.7 + 0.3,
+      width: Math.random() * 3 + 2,
       brightness: Math.random() * 0.5 + 0.5,
       trail: []
     };
@@ -80,29 +80,29 @@ class ShootingStars {
   updateMeteors() {
     for (let i = this.meteors.length - 1; i >= 0; i--) {
       const meteor = this.meteors[i];
-      
+
       meteor.trail.push({
         x: meteor.x,
         y: meteor.y,
         opacity: meteor.opacity
       });
-      
+
       if (meteor.trail.length > 20) {
         meteor.trail.shift();
       }
-      
+
       meteor.x += Math.cos(meteor.angle) * meteor.speed;
       meteor.y += Math.sin(meteor.angle) * meteor.speed;
-      
+
       meteor.opacity -= 0.002;
-      
-      if (meteor.x > this.canvas.width + 100 || 
-          meteor.y > this.canvas.height + 100 || 
-          meteor.opacity <= 0) {
+
+      if (meteor.x > this.canvas.width + 100 ||
+        meteor.y > this.canvas.height + 100 ||
+        meteor.opacity <= 0) {
         this.meteors.splice(i, 1);
       }
     }
-    
+
     if (Math.random() < 0.015 && this.meteors.length < 5) {
       this.createMeteor();
     }
@@ -111,7 +111,7 @@ class ShootingStars {
   drawStars() {
     this.ctx.fillStyle = '#ffffff';
     const time = Date.now() * 0.001;
-    
+
     for (const star of this.stars) {
       const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.5 + 0.5;
       this.ctx.globalAlpha = star.opacity * twinkle;
@@ -130,16 +130,16 @@ class ShootingStars {
         meteor.x,
         meteor.y
       );
-      
+
       gradient.addColorStop(0, `rgba(255, 255, 255, 0)`);
       gradient.addColorStop(0.3, `rgba(200, 200, 255, ${meteor.opacity * 0.3})`);
       gradient.addColorStop(0.6, `rgba(150, 150, 255, ${meteor.opacity * 0.6})`);
       gradient.addColorStop(1, `rgba(255, 255, 255, ${meteor.opacity})`);
-      
+
       this.ctx.strokeStyle = gradient;
       this.ctx.lineWidth = meteor.width;
       this.ctx.lineCap = 'round';
-      
+
       this.ctx.beginPath();
       this.ctx.moveTo(
         meteor.x - Math.cos(meteor.angle) * meteor.length,
@@ -147,12 +147,12 @@ class ShootingStars {
       );
       this.ctx.lineTo(meteor.x, meteor.y);
       this.ctx.stroke();
-      
+
       this.ctx.fillStyle = `rgba(255, 255, 255, ${meteor.opacity})`;
       this.ctx.beginPath();
       this.ctx.arc(meteor.x, meteor.y, meteor.width * 1.5, 0, Math.PI * 2);
       this.ctx.fill();
-      
+
       const glowGradient = this.ctx.createRadialGradient(
         meteor.x, meteor.y, 0,
         meteor.x, meteor.y, meteor.width * 8
@@ -160,7 +160,7 @@ class ShootingStars {
       glowGradient.addColorStop(0, `rgba(200, 200, 255, ${meteor.opacity * 0.4})`);
       glowGradient.addColorStop(0.5, `rgba(150, 150, 255, ${meteor.opacity * 0.1})`);
       glowGradient.addColorStop(1, 'rgba(100, 100, 255, 0)');
-      
+
       this.ctx.fillStyle = glowGradient;
       this.ctx.beginPath();
       this.ctx.arc(meteor.x, meteor.y, meteor.width * 8, 0, Math.PI * 2);
@@ -170,11 +170,11 @@ class ShootingStars {
 
   animate() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
+
     this.drawStars();
     this.updateMeteors();
     this.drawMeteors();
-    
+
     this.animationId = requestAnimationFrame(() => this.animate());
   }
 
