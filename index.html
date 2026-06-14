@@ -75,7 +75,15 @@
       <h2 class="section-title fade-in">最新动态</h2>
       <p class="section-subtitle fade-in delay-1">最近更新的文章和笔记</p>
       <div class="featured-grid">
-        <a href="notes/math/幂级数求和函数.html" class="featured-card fade-in delay-1">
+        <a href="posts/纪念电池毁了我的第一次六级考试.html" class="featured-card fade-in delay-1">
+          <h3>纪念电池毁了我的第一次六级考试</h3>
+          <p>记录一次难忘的六级考试经历，电池意外没电带来的教训与思考...</p>
+          <div class="meta">
+            <span><i class="fas fa-calendar"></i> 2026-06-14</span>
+            <span><i class="fas fa-heart"></i> 思绪随笔</span>
+          </div>
+        </a>
+        <a href="notes/math/幂级数求和函数.html" class="featured-card fade-in delay-2">
           <h3>幂级数求和函数</h3>
           <p>幂级数求和的核心步骤、常用公式、求和技巧及典型例题详解...</p>
           <div class="meta">
@@ -112,41 +120,46 @@
 
   <section class="music-section">
     <div class="container">
-      <h2 class="section-title">🎵 音乐推荐</h2>
+      <h2 class="section-title">🎵 我的歌单</h2>
       <div class="music-player">
         <div class="player-content">
-          <div class="player-controls">
-            <div class="loading-indicator" id="loadingIndicator">
-              <span class="loading-spinner"></span>
-              <span class="loading-text">加载中...</span>
+          <div class="loading-indicator" id="loadingIndicator">
+            <span class="loading-spinner"></span>
+            <span class="loading-text">加载中...</span>
+          </div>
+          <div class="song-info">
+            <h3 class="song-title">How to Love</h3>
+            <p class="song-artist">Cash Cash & Sofia Reyes</p>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+              <div class="progress-thumb" id="progressThumb"></div>
             </div>
-            <div class="song-info">
-              <h3 class="song-title">How to Love</h3>
-              <p class="song-artist">Cash Cash & Sofia Reyes</p>
+            <div class="time-display">
+              <span id="currentTime">0:00</span>
+              <span id="totalTime">0:00</span>
             </div>
-            <div class="progress-bar">
-              <div class="progress-track">
-                <div class="progress-fill" id="progressFill"></div>
-                <div class="progress-thumb" id="progressThumb"></div>
-              </div>
-              <div class="time-display">
-                <span id="currentTime">0:00</span>
-                <span id="totalTime">0:00</span>
-              </div>
-            </div>
-            <div class="controls-row">
-              <button class="control-btn" id="prevBtn"><i class="fas fa-backward"></i></button>
-              <button class="control-btn play-btn" id="playBtn"><i class="fas fa-play"></i></button>
-              <button class="control-btn" id="nextBtn"><i class="fas fa-forward"></i></button>
-              <div class="volume-control">
-                <i class="fas fa-volume-down"></i>
-                <input type="range" id="volumeSlider" min="0" max="100" value="70">
-                <i class="fas fa-volume-up"></i>
-              </div>
+          </div>
+          <div class="controls-row">
+            <button class="control-btn" id="prevBtn"><i class="fas fa-backward"></i></button>
+            <button class="control-btn play-btn" id="playBtn"><i class="fas fa-play"></i></button>
+            <button class="control-btn" id="nextBtn"><i class="fas fa-forward"></i></button>
+            <div class="volume-control">
+              <i class="fas fa-volume-down"></i>
+              <input type="range" id="volumeSlider" min="0" max="100" value="70">
+              <i class="fas fa-volume-up"></i>
             </div>
           </div>
         </div>
         <audio id="audioPlayer" src="music/How to Love (feat. Sofia Reyes) - Cash Cash、Sofia Reyes.mp3"></audio>
+      </div>
+
+      <div class="playlist-link">
+        <a href="https://music.163.com/playlist?id=2236862204" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-cloud-music"></i>
+          <span>想要听更多？来网易云音乐看看我喜欢的音乐</span>
+        </a>
       </div>
     </div>
   </section>
