@@ -25,25 +25,13 @@ const SiteData = {
   },
 
   incrementPostViews(postId) {
-    const data = this.getData();
-    if (data.posts[postId]) {
-      data.posts[postId].views++;
-      data.totalViews++;
-      this.saveData(data);
-      return data.posts[postId].views;
-    }
+    // 浏览次数功能已移除
     return 0;
   },
 
   incrementPageViews(pageName) {
-    const data = this.getData();
-    if (!data.pageViews[pageName]) {
-      data.pageViews[pageName] = 0;
-    }
-    data.pageViews[pageName]++;
-    data.totalViews++;
-    this.saveData(data);
-    return data.pageViews[pageName];
+    // 页面访问统计功能已移除
+    return 0;
   },
 
   formatNumber(num) {
@@ -119,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const statNumbers = document.querySelectorAll('.stat-card .number');
   if (statNumbers.length > 0) {
     const currentData = SiteData.getData();
-    const noteViews = parseInt(localStorage.getItem('note_views_幂级数求和函数')) || 0;
 
     statNumbers.forEach((element) => {
       const statType = element.dataset.stat;
@@ -134,9 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
           break;
         case 'photos':
           value = currentData.photos;
-          break;
-        case 'views':
-          value = currentData.totalViews + noteViews;
           break;
       }
 
@@ -156,17 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     SiteData.saveData(currentData);
   }
 
-  const blogCards = document.querySelectorAll('.blog-card');
-  blogCards.forEach(card => {
-    const viewSpan = card.querySelector('.views-count');
-    if (viewSpan) {
-      const postId = card.dataset.postId;
-      const currentData = SiteData.getData();
-      if (postId && currentData.posts[postId]) {
-        viewSpan.innerHTML = `<i class="fas fa-eye"></i> ${currentData.posts[postId].views}`;
-      }
-    }
-  });
+  // 浏览次数显示功能已移除
 
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
@@ -228,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addNewPost = function (postId, title) {
     const data = SiteData.getData();
-    data.posts[postId] = { views: 0, title: title };
+    data.posts[postId] = { title: title };
     data.blogPosts++;
     SiteData.saveData(data);
     console.log(`新文章 "${title}" 已添加，ID: ${postId}`);

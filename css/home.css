@@ -458,6 +458,33 @@
   /* 悬停时也无下划线 */
 }
 
+/* 加密文章锁图标 */
+.featured-lock {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(249, 115, 22, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  box-shadow: 0 3px 10px rgba(249, 115, 22, 0.3);
+  animation: pulse-lock-featured 2s ease-in-out infinite;
+}
+
+@keyframes pulse-lock-featured {
+  0%, 100% {
+    box-shadow: 0 3px 10px rgba(249, 115, 22, 0.3);
+  }
+  50% {
+    box-shadow: 0 3px 20px rgba(249, 115, 22, 0.5);
+  }
+}
+
 /* 卡片顶部渐变条（悬停时显示） */
 .featured-card::before {
   content: '';

@@ -233,6 +233,64 @@
   box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
 }
 
+/* 加密文章样式 */
+.blog-card.locked .blog-image {
+  position: relative;
+}
+
+.blog-card.locked .lock-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(249, 115, 22, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+  animation: pulse-lock 2s ease-in-out infinite;
+}
+
+@keyframes pulse-lock {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 15px rgba(249, 115, 22, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 4px 25px rgba(249, 115, 22, 0.6);
+  }
+}
+
+.blog-card.locked .locked-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(249, 115, 22, 0.2);
+  border-radius: 10px;
+  font-size: 0.75rem;
+  color: #f97316;
+}
+
+[data-theme="light"] .blog-card.locked .locked-tag {
+  background: rgba(249, 115, 22, 0.15);
+  color: #ea580c;
+}
+
+.blog-card.locked:hover .locked-tag {
+  background: rgba(249, 115, 22, 0.3);
+}
+
+[data-theme="light"] .blog-card.locked:hover .locked-tag {
+  background: rgba(249, 115, 22, 0.25);
+}
+
 .category-filter {
   display: flex;
   justify-content: center;
