@@ -56,12 +56,12 @@
       }
     }
 
-    /* 元信息弱化 */
+    /* 元信息优化 - 提高亮度 */
     .note-meta {
       display: flex;
       justify-content: center;
       gap: 25px;
-      color: rgba(255, 255, 255, 0.4);
+      color: rgba(255, 255, 255, 0.55);
       font-size: 0.85rem;
       margin-bottom: 25px;
       font-weight: 300;
@@ -74,22 +74,22 @@
     }
 
     .note-meta i {
-      opacity: 0.6;
+      opacity: 0.7;
     }
 
     /* 内容卡片优化 - 增加呼吸感 */
     .note-content {
       max-width: 850px;
       margin: 0 auto;
-      background: rgba(20, 10, 50, 0.6);
+      background: rgba(25, 12, 55, 0.7);
       backdrop-filter: blur(25px);
-      border: 1px solid rgba(106, 0, 255, 0.15);
+      border: 1px solid rgba(106, 0, 255, 0.2);
       border-radius: 16px;
       padding: 50px 60px;
       line-height: 1.8;
       color: var(--text-main);
-      box-shadow: 0 8px 32px rgba(106, 0, 255, 0.1),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      box-shadow: 0 8px 32px rgba(106, 0, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     /* 二级标题优化 - 渐变效果 */
@@ -117,10 +117,10 @@
       letter-spacing: 0.5px;
     }
 
-    /* 正文优化 */
+    /* 正文优化 - 提高亮度 */
     .note-content p {
       margin: 18px 0;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.88);
       line-height: 1.8;
     }
 
@@ -149,18 +149,19 @@
       font-size: 1.3em !important;
     }
 
-    /* 列表优化 - 增加行高 */
+    /* 列表优化 - 提高亮度 */
     .note-content ul,
     .note-content ol {
       margin: 20px 0;
       padding-left: 35px;
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.88);
       line-height: 1.8;
     }
 
     .note-content li {
       margin: 12px 0;
       line-height: 1.8;
+      color: rgba(255, 255, 255, 0.88);
     }
 
     /* 代码优化 */
@@ -173,7 +174,7 @@
       font-weight: 500;
     }
 
-    /* 引用块优化 */
+    /* 引用块优化 - 提高亮度 */
     .note-content blockquote {
       border-left: 3px solid var(--purple);
       background: linear-gradient(90deg, rgba(106, 0, 255, 0.08) 0%, rgba(20, 10, 50, 0.05) 100%);
@@ -185,7 +186,7 @@
 
     .note-content blockquote p {
       margin: 0;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(255, 255, 255, 0.92);
     }
 
     /* 表格优化 */
@@ -212,7 +213,7 @@
 
     .note-content td {
       background: rgba(20, 10, 50, 0.3);
-      color: rgba(255, 255, 255, 0.75);
+      color: rgba(255, 255, 255, 0.88);
     }
 
     /* 分隔线优化 */
