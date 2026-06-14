@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习笔记：前端开发心得 - RuoYing</title>
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="../favicon-512x512.png">
+  <link rel="apple-touch-icon" href="../favicon-512x512.png">
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .post-section {
+      padding: 120px 0 100px;
+    }
+
+    .post-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .post-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .post-category {
+      display: inline-block;
+      padding: 8px 20px;
+      background: rgba(106, 0, 255, 0.15);
+      border-radius: 25px;
+      font-size: 0.9rem;
+      color: var(--purple);
+      margin-bottom: 20px;
+    }
+
+    .post-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-main);
+    }
+
+    .post-meta {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .post-meta i {
+      margin-right: 5px;
+    }
+
+    .post-image {
+      height: 400px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      border-radius: var(--radius);
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .post-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 30% 70%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+      border-radius: var(--radius);
+    }
+
+    .post-content {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 50px;
+    }
+
+    .post-content h2 {
+      font-size: 1.6rem;
+      margin: 35px 0 20px;
+      color: var(--text-main);
+    }
+
+    .post-content p {
+      color: var(--text-secondary);
+      line-height: 1.9;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .post-content ul,
+    .post-content ol {
+      color: var(--text-secondary);
+      margin-left: 25px;
+      margin-bottom: 20px;
+    }
+
+    .post-content li {
+      margin-bottom: 10px;
+    }
+
+    .post-content code {
+      background: rgba(106, 0, 255, 0.15);
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      color: var(--pink);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 30px;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--pink);
+    }
+
+    .back-link i {
+      margin-right: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .post-title {
+        font-size: 1.8rem;
+      }
+
+      .post-meta {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .post-image {
+        height: 250px;
+      }
+
+      .post-content {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="../index.html" class="logo"><span>R</span>uoYing</a>
+      <ul class="nav-links">
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="../about.html">关于</a></li>
+        <li><a href="../blog.html" class="active">博客</a></li>
+        <li><a href="../notes.html">笔记</a></li>
+        <li><a href="../gallery.html">相册</a></li>
+        <li><a href="../contact.html">联系</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="post-section">
+    <div class="container post-container">
+      <a href="../blog.html" class="back-link"><i class="fas fa-arrow-left"></i> 返回博客</a>
+
+      <div class="post-header">
+        <span class="post-category">技术分享</span>
+        <h1 class="post-title">学习笔记：前端开发心得</h1>
+        <div class="post-meta">
+          <span><i class="fas fa-calendar"></i> 2024-01-10</span>
+          <span><i class="fas fa-eye"></i> 189 阅读</span>
+          <span><i class="fas fa-tag"></i> 前端、学习</span>
+        </div>
+      </div>
+
+      <div class="post-image"></div>
+
+      <div class="post-content">
+        <p>作为一名前端开发者，我在学习和工作中积累了一些心得和体会，希望能与大家分享。</p>
+
+        <h2>入门阶段</h2>
+        <p>
+          刚开始学习前端时，我觉得HTML、CSS、JavaScript这三者要一起学，难度挺大的。后来发现，其实可以分阶段来：先掌握HTML的结构，再学习CSS的样式，最后学习JavaScript的交互。这样循序渐进，会轻松很多。
+        </p>
+
+        <h2>CSS技巧</h2>
+        <p>CSS是一门看似简单但其实很博大精深的语言。我觉得掌握好Flexbox和Grid布局是非常重要的，它们能让页面布局变得更加灵活和高效。另外，CSS动画和过渡效果也能让页面更加生动有趣。</p>
+
+        <h2>JavaScript学习</h2>
+        <p>JavaScript是前端的核心。我建议从基础的变量、函数、条件语句开始，然后学习DOM操作，最后再学习ES6+的新特性。理解闭包、原型链这些概念对于深入掌握JavaScript非常有帮助。</p>
+
+        <h2>框架学习</h2>
+        <p>现在前端框架层出不穷，React、Vue、Angular等等。我觉得可以先选择一个框架深入学习，比如React或Vue，掌握了一个之后再学习其他框架会容易很多。重要的是理解框架的思想和设计模式。</p>
+
+        <h2>学习资源推荐</h2>
+        <ul>
+          <li><code>MDN Web Docs</code> - 权威的Web开发文档</li>
+          <li><code>freeCodeCamp</code> - 免费的编程学习平台</li>
+          <li><code>Codecademy</code> - 交互式编程学习网站</li>
+          <li><code>YouTube教程</code> - 很多优质的视频教程</li>
+        </ul>
+
+        <h2>总结</h2>
+        <p>前端开发是一个不断学习和进步的过程。保持好奇心，多实践，多阅读优秀的代码，相信大家都能成为优秀的前端开发者！</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="padding: 50px 20px; text-align: center; border-top: 1px solid var(--glass-border);">
+      <p>&copy; 2026 RuoYing. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // 增加文章浏览量并更新显示
+    document.addEventListener('DOMContentLoaded', () => {
+      const postId = 'post2';
+      const newViews = SiteData.incrementPostViews(postId);
+      const viewSpan = document.querySelector('.post-meta span:nth-child(2)');
+      if (viewSpan) {
+        viewSpan.innerHTML = `<i class="fas fa-eye"></i> ${newViews} 阅读`;
+      }
+    });
+  </script>
+</body>
+
+</html>

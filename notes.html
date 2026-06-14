@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>笔记 - RuoYing</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
+  <link rel="apple-touch-icon" href="favicon-512x512.png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/notes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="favicon-512x512.png" alt="Avatar" class="avatar">
+        <span>R</span><span class="logo-text">uoYing</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="blog.html">博客</a></li>
+        <li><a href="notes.html" class="active">笔记</a></li>
+        <li><a href="gallery.html">相册</a></li>
+        <li><a href="contact.html">联系</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="notes-section">
+    <div class="container">
+      <h1 class="section-title fade-in">学习笔记</h1>
+      <p class="section-subtitle fade-in delay-1">记录知识，分享心得</p>
+
+      <div class="notes-sidebar fade-in delay-2">
+        <h3><i class="fas fa-tags" style="margin-right: 10px; color: var(--purple);"></i>标签云</h3>
+        <div class="tag-cloud">
+          <button class="active" data-tag="all">全部</button>
+          <button data-tag="frontend">前端</button>
+          <button data-tag="javascript">JavaScript</button>
+          <button data-tag="css">CSS</button>
+          <button data-tag="react">React</button>
+          <button data-tag="reading">阅读</button>
+          <button data-tag="life">生活</button>
+        </div>
+      </div>
+
+      <div class="notes-grid">
+        <div class="note-card fade-in" data-tag="frontend">
+          <div class="note-date"><i class="fas fa-calendar"></i> 2024-01-14</div>
+          <h3>CSS Grid 布局入门</h3>
+          <p>Grid布局是一种强大的二维布局系统，可以轻松实现复杂的页面布局...</p>
+          <div class="note-tags">
+            <span class="note-tag">CSS</span>
+            <span class="note-tag">布局</span>
+          </div>
+        </div>
+
+        <div class="note-card fade-in delay-1" data-tag="javascript">
+          <div class="note-date"><i class="fas fa-calendar"></i> 2024-01-13</div>
+          <h3>JavaScript 异步编程</h3>
+          <p>Promise、async/await 的使用方法和最佳实践...</p>
+          <div class="note-tags">
+            <span class="note-tag">JavaScript</span>
+            <span class="note-tag">异步</span>
+          </div>
+        </div>
+
+        <div class="note-card fade-in delay-2" data-tag="react">
+          <div class="note-date"><i class="fas fa-calendar"></i> 2024-01-12</div>
+          <h3>React Hooks 详解</h3>
+          <p>useState、useEffect、useContext 等常用 Hooks 的使用...</p>
+          <div class="note-tags">
+            <span class="note-tag">React</span>
+            <span class="note-tag">Hooks</span>
+          </div>
+        </div>
+
+        <div class="note-card fade-in delay-3" data-tag="reading">
+          <div class="note-date"><i class="fas fa-calendar"></i> 2024-01-11</div>
+          <h3>《刻意练习》读书笔记</h3>
+          <p>通过刻意练习可以在任何领域取得卓越成就...</p>
+          <div class="note-tags">
+            <span class="note-tag">阅读</span>
+            <span class="note-tag">学习</span>
+          </div>
+        </div>
+
+        <div class="note-card fade-in" data-tag="css">
+          <div class="note-date"><i class="fas fa-calendar"></i> 2024-01-10</div>
+          <h3>CSS 动画性能优化</h3>
+          <p>如何使用 will-change、GPU加速等技术优化动画性能...</p>
+          <div class="note-tags">
+            <span class="note-tag">CSS</span>
+            <span class="note-tag">性能</span>
+          </div>
+        </div>
+
+        <div class="note-card fade-in delay-1" data-tag="life">
+          <div class="note-date"><i class="fas fa-calendar"></i> 2024-01-09</div>
+          <h3>时间管理心得</h3>
+          <p>使用番茄工作法和GTD管理日常任务...</p>
+          <div class="note-tags">
+            <span class="note-tag">生活</span>
+            <span class="note-tag">效率</span>
+          </div>
+        </div>
+
+        <div class="note-card fade-in delay-2" data-tag="frontend">
+          <div class="note-date"><i class="fas fa-calendar"></i> 2024-01-08</div>
+          <h3>响应式设计原则</h3>
+          <p>移动端优先、弹性布局、媒体查询等响应式设计技巧...</p>
+          <div class="note-tags">
+            <span class="note-tag">前端</span>
+            <span class="note-tag">响应式</span>
+          </div>
+        </div>
+
+        <div class="note-card fade-in delay-3" data-tag="javascript">
+          <div class="note-date"><i class="fas fa-calendar"></i> 2024-01-07</div>
+          <h3>ES6+ 新特性总结</h3>
+          <p>箭头函数、解构赋值、模板字符串、类等新特性...</p>
+          <div class="note-tags">
+            <span class="note-tag">JavaScript</span>
+            <span class="note-tag">ES6</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="padding: 50px 20px; text-align: center; border-top: 1px solid var(--glass-border);">
+      <p>&copy; 2026 RuoYing. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

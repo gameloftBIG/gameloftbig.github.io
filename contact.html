@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>联系我 - RuoYing</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
+  <link rel="apple-touch-icon" href="favicon-512x512.png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .contact-section {
+      padding: 120px 0 100px;
+    }
+
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 50px;
+      margin-bottom: 30px;
+    }
+
+    .contact-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: var(--text-main);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-form .form-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 15px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: var(--pink);
+      box-shadow: 0 0 20px rgba(208, 0, 255, 0.2);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .contact-form button {
+      align-self: flex-start;
+    }
+
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+    }
+
+    .info-item {
+      text-align: center;
+      padding: 30px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+    }
+
+    .info-item i {
+      font-size: 2rem;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .info-item h4 {
+      color: var(--text-main);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .info-item p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .info-item a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .info-item a:hover {
+      color: var(--pink);
+    }
+
+    @media (max-width: 768px) {
+      .contact-card {
+        padding: 30px 20px;
+      }
+
+      .contact-card h2 {
+        font-size: 1.5rem;
+      }
+
+      .contact-form button {
+        align-self: stretch;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="favicon-512x512.png" alt="Avatar" class="avatar">
+        <span>R</span><span class="logo-text">uoYing</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="blog.html">博客</a></li>
+        <li><a href="notes.html">笔记</a></li>
+        <li><a href="gallery.html">相册</a></li>
+        <li><a href="contact.html" class="active">联系</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="contact-section">
+    <div class="container contact-container">
+      <h1 class="section-title fade-in">联系我</h1>
+      <p class="section-subtitle fade-in delay-1">有任何问题或想法，欢迎与我交流</p>
+
+      <div class="contact-info">
+        <div class="info-item fade-in delay-2">
+          <i class="fas fa-envelope"></i>
+          <h4>邮箱</h4>
+          <p><a href="mailto:1113757864@qq.com">1113757864@qq.com</a></p>
+        </div>
+      </div>
+
+      <div class="contact-card fade-in delay-3">
+        <h2><i class="fas fa-message-circle" style="margin-right: 10px; color: var(--pink);"></i>发送消息</h2>
+        <form class="contact-form" action="mailto:1113757864@qq.com" method="post" enctype="text/plain">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="您的姓名" required>
+            <input type="email" name="email" placeholder="您的邮箱" required>
+          </div>
+          <input type="text" name="subject" placeholder="主题" required>
+          <textarea name="message" placeholder="请输入您的消息..." required></textarea>
+          <button type="submit" class="btn btn-primary">发送消息</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="padding: 50px 20px; text-align: center; border-top: 1px solid var(--glass-border);">
+      <p>&copy; 2026 RuoYing. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

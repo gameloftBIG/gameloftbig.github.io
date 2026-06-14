@@ -1,0 +1,652 @@
+/* ============================================
+   首页样式文件 (home.css)
+   包含：Hero区域、打字机效果、最新动态、统计数据
+   ============================================ */
+
+/* 首页移动端导航栏修复 */
+@media (max-width: 768px) {
+  body>nav>.nav-container {
+    justify-content: space-between !important;
+    padding: 0 15px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  body>nav>.nav-container>.hamburger {
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    padding: 8px !important;
+  }
+
+  body>nav>.nav-container>.nav-links {
+    position: fixed !important;
+    top: 70px !important;
+    right: -100% !important;
+    width: 100% !important;
+    height: calc(100vh - 70px) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  body>nav>.nav-container>.nav-links.active {
+    right: 0 !important;
+  }
+}
+
+/* --------------------------------------------
+   Hero 区域 - 首页主视觉区域
+   -------------------------------------------- */
+.hero {
+  min-height: 100vh;
+  /* 最小高度为视窗高度，确保占满整个屏幕 */
+  display: flex;
+  /* 使用 Flexbox 布局 */
+  align-items: center;
+  /* 垂直居中 */
+  justify-content: center;
+  /* 水平居中 */
+  position: relative;
+  /* 相对定位，为背景圆圈提供定位参考 */
+  padding-top: 70px;
+  /* 顶部留出导航栏空间 */
+}
+
+/* Hero 内容容器 */
+.hero-content {
+  width: 100%;
+  /* 占满整个宽度 */
+  max-width: 1200px;
+  /* 最大宽度限制 */
+  display: flex;
+  /* 使用 Flexbox 布局 */
+  justify-content: space-between;
+  /* 左右分布 */
+  align-items: center;
+  /* 垂直居中 */
+  padding: 0 5%;
+  /* 左右留白 */
+}
+
+/* --------------------------------------------
+   打字机效果容器和样式
+   -------------------------------------------- */
+/* 打字机左容器 - 文字从下往上进入 */
+.typewriter-left {
+  text-align: left;
+  /* 左对齐 */
+  transform: translateY(80px);
+  /* 初始位置向下偏移 */
+  opacity: 0;
+  /* 初始隐藏 */
+  animation: slideUpLeft 0.6s ease-out forwards;
+  /* 向上滑动动画 */
+}
+
+/* 打字机右容器 - 文字从上往下进入 */
+.typewriter-right {
+  text-align: right;
+  /* 右对齐 */
+  transform: translateY(-80px);
+  /* 初始位置向上偏移 */
+  opacity: 0;
+  /* 初始隐藏 */
+  animation: slideDownRight 0.6s ease-out forwards;
+  /* 向下滑动动画 */
+  animation-delay: 0.15s;
+  /* 稍晚启动，形成交错效果 */
+}
+
+/* 左边向上滑动动画 */
+@keyframes slideUpLeft {
+  from {
+    transform: translateY(80px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 右边向下滑动动画 */
+@keyframes slideDownRight {
+  from {
+    transform: translateY(-80px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 左容器文字样式 */
+.typewriter-left p {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.typewriter-left h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* 渐变文字效果 */
+.gradient-text {
+  background: linear-gradient(135deg, var(--purple), var(--cyan), var(--yellow)) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline !important;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  transition: none !important;
+}
+
+/* 右容器文字样式 */
+.typewriter-right p {
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.typewriter-right p:first-child {
+  margin-top: 20px;
+}
+
+/* --------------------------------------------
+   装饰性粒子效果
+   -------------------------------------------- */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  opacity: 0.6;
+  animation: float linear infinite;
+}
+
+.particle-1 {
+  width: 4px;
+  height: 4px;
+  top: 20%;
+  left: 15%;
+  animation-duration: 8s;
+}
+
+.particle-2 {
+  width: 6px;
+  height: 6px;
+  top: 60%;
+  right: 20%;
+  animation-duration: 12s;
+  animation-delay: -2s;
+}
+
+.particle-3 {
+  width: 3px;
+  height: 3px;
+  top: 40%;
+  left: 80%;
+  animation-duration: 10s;
+  animation-delay: -4s;
+}
+
+.particle-4 {
+  width: 5px;
+  height: 5px;
+  top: 80%;
+  left: 10%;
+  animation-duration: 14s;
+  animation-delay: -6s;
+}
+
+.particle-5 {
+  width: 4px;
+  height: 4px;
+  top: 30%;
+  right: 10%;
+  animation-duration: 9s;
+  animation-delay: -3s;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.6;
+  }
+
+  25% {
+    transform: translateY(-20px) translateX(10px);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translateY(-40px) translateX(-5px);
+    opacity: 0.4;
+  }
+
+  75% {
+    transform: translateY(-20px) translateX(-10px);
+    opacity: 0.7;
+  }
+}
+
+/* --------------------------------------------
+   滚动提示
+   -------------------------------------------- */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 2s forwards;
+}
+
+.scroll-arrow {
+  width: 20px;
+  height: 30px;
+  border: 2px solid var(--text-secondary);
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.scroll-arrow::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 8px;
+  background: var(--text-secondary);
+  border-radius: 2px;
+  left: 50%;
+  top: 5px;
+  transform: translateX(-50%);
+  animation: scrollDown 1.5s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+  0% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-50%) translateY(15px);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* --------------------------------------------
+   Hero 背景圆圈动画效果 - 呼吸渐变灯
+   -------------------------------------------- */
+.hero-circle-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* 多层圆圈实现平滑颜色过渡 */
+.hero-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.8;
+}
+
+/* 主颜色层 - 紫色系 */
+.hero-circle.layer1 {
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(106, 0, 255, 0.6) 0%, transparent 70%);
+  animation: pulse1 6s ease-in-out infinite;
+}
+
+/* 次颜色层 - 青色系 */
+.hero-circle.layer2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 206, 209, 0.5) 0%, transparent 70%);
+  animation: pulse2 8s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+/* 第三颜色层 - 黄色系 */
+.hero-circle.layer3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.4) 0%, transparent 70%);
+  animation: pulse3 7s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+/* 呼吸动画 */
+@keyframes pulse1 {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+@keyframes pulse2 {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulse3 {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* --------------------------------------------
+   最新动态区域
+   -------------------------------------------- */
+.featured-section {
+  padding: 100px 0;
+  /* 上下内边距 */
+}
+
+/* 最新动态网格布局 */
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  /* 自适应列数，最小350px */
+  gap: 30px;
+  /* 卡片间距 */
+}
+
+/* 最新动态卡片样式 */
+.featured-card {
+  background: var(--card-bg);
+  /* 卡片背景色 */
+  backdrop-filter: blur(20px);
+  /* 模糊效果，玻璃拟态 */
+  border: 1px solid var(--glass-border);
+  /* 边框 */
+  border-radius: var(--radius);
+  /* 圆角 */
+  padding: 30px;
+  transition: all 0.3s ease;
+  /* 平滑过渡效果 */
+  cursor: pointer;
+  /* 鼠标指针 */
+  position: relative;
+  overflow: hidden;
+  /* 隐藏溢出内容 */
+}
+
+/* 卡片顶部渐变条（悬停时显示） */
+.featured-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--purple), var(--pink));
+  transform: scaleX(0);
+  /* 默认隐藏 */
+  transition: transform 0.3s ease;
+}
+
+/* 悬停时显示顶部渐变条 */
+.featured-card:hover::before {
+  transform: scaleX(1);
+}
+
+/* 卡片悬停效果 */
+.featured-card:hover {
+  transform: translateY(-5px);
+  /* 上移 5px */
+  border-color: rgba(208, 0, 255, 0.3);
+}
+
+/* 卡片标题 */
+.featured-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: var(--text-main);
+}
+
+/* 卡片描述文字 */
+.featured-card p {
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+/* 卡片元信息（日期、标签） */
+.featured-card .meta {
+  display: flex;
+  justify-content: space-between;
+  /* 两端对齐 */
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* --------------------------------------------
+   统计数据区域
+   -------------------------------------------- */
+.stats-section {
+  padding: 100px 0;
+}
+
+/* 统计数据网格布局 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+}
+
+/* 统计数据卡片 */
+.stat-card {
+  text-align: center;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 40px 20px;
+}
+
+/* 统计数字样式 */
+.stat-card .number {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  /* 渐变数字 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+
+/* 统计标签文字 */
+.stat-card .label {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+/* --------------------------------------------
+   移动端响应式样式 (max-width: 768px)
+   -------------------------------------------- */
+@media (max-width: 768px) {
+
+  /* Hero区域调整 */
+  .hero {
+    min-height: calc(100vh - 70px);
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+
+  /* Hero内容容器 */
+  .hero-content {
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 5%;
+    text-align: center;
+  }
+
+  /* 打字机容器 */
+  .typewriter-left,
+  .typewriter-right {
+    text-align: center;
+  }
+
+  /* 打字机文字大小调整 */
+  .typewriter-left p {
+    font-size: 1.2rem;
+  }
+
+  .typewriter-left h1 {
+    font-size: 2rem;
+  }
+
+  .typewriter-right p {
+    font-size: 1rem;
+  }
+
+  /* 背景圆圈缩小 */
+  .hero-circle-container {
+    width: 400px;
+    height: 400px;
+  }
+
+  .hero-circle.layer1 {
+    width: 300px;
+    height: 300px;
+  }
+
+  .hero-circle.layer2 {
+    width: 250px;
+    height: 250px;
+  }
+
+  .hero-circle.layer3 {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* 滚动提示调整 */
+  .scroll-hint {
+    bottom: 20px;
+    font-size: 0.8rem;
+  }
+
+  /* 最新动态区域 */
+  .featured-section {
+    padding: 60px 0;
+  }
+
+  /* 最新动态单列显示 */
+  .featured-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* 卡片内边距调整 */
+  .featured-card {
+    padding: 20px;
+  }
+
+  /* 统计数据区域 */
+  .stats-section {
+    padding: 60px 0;
+  }
+
+  /* 统计数据两列显示 */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  /* 统计卡片内边距调整 */
+  .stat-card {
+    padding: 25px 10px;
+  }
+
+  .stat-card .number {
+    font-size: 2rem;
+  }
+
+  .stat-card .label {
+    font-size: 0.85rem;
+  }
+}

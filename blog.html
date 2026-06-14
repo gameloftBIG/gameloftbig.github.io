@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>博客 - RuoYing</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
+  <link rel="apple-touch-icon" href="favicon-512x512.png">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/blog.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="favicon-512x512.png" alt="Avatar" class="avatar">
+        <span>R</span><span class="logo-text">uoYing</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="blog.html" class="active">博客</a></li>
+        <li><a href="notes.html">笔记</a></li>
+        <li><a href="gallery.html">相册</a></li>
+        <li><a href="contact.html">联系</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="blog-section">
+    <div class="container">
+      <h1 class="section-title fade-in">博客文章</h1>
+      <p class="section-subtitle fade-in delay-1">记录生活，分享感悟</p>
+
+      <div class="category-filter fade-in delay-2">
+        <button class="active" data-category="all">全部</button>
+        <button data-category="life">生活随笔</button>
+        <button data-category="tech">技术分享</button>
+        <button data-category="travel">旅行日记</button>
+        <button data-category="reading">读书心得</button>
+      </div>
+
+      <div class="blog-grid">
+        <div class="blog-card fade-in" data-category="life" data-post-id="post1"
+          onclick="location.href='posts/post1.html'">
+          <div class="blog-image"></div>
+          <div class="blog-content">
+            <span class="blog-category">生活随笔</span>
+            <h3>生活中的小确幸</h3>
+            <p>记录那些平凡日子里的温暖瞬间，让生活充满阳光...</p>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar"></i> 2024-01-15</span>
+              <span class="views-count"><i class="fas fa-eye"></i> 234</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-in delay-1" data-category="tech" data-post-id="post2"
+          onclick="location.href='posts/post2.html'">
+          <div class="blog-image"></div>
+          <div class="blog-content">
+            <span class="blog-category">技术分享</span>
+            <h3>学习笔记：前端开发心得</h3>
+            <p>分享前端开发的学习历程和技术心得...</p>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar"></i> 2024-01-10</span>
+              <span class="views-count"><i class="fas fa-eye"></i> 189</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-in delay-2" data-category="travel" data-post-id="post3">
+          <div class="blog-image"></div>
+          <div class="blog-content">
+            <span class="blog-category">旅行日记</span>
+            <h3>春日漫步：城市中的一抹绿意</h3>
+            <p>春天来了，一起去感受大自然的美好...</p>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar"></i> 2024-01-08</span>
+              <span class="views-count"><i class="fas fa-eye"></i> 156</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-in delay-3" data-category="reading" data-post-id="post4">
+          <div class="blog-image"></div>
+          <div class="blog-content">
+            <span class="blog-category">读书心得</span>
+            <h3>《人类简史》读后感</h3>
+            <p>阅读尤瓦尔·赫拉利的《人类简史》后的思考与感悟...</p>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar"></i> 2024-01-05</span>
+              <span class="views-count"><i class="fas fa-eye"></i> 142</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-in" data-category="life" data-post-id="post5">
+          <div class="blog-image"></div>
+          <div class="blog-content">
+            <span class="blog-category">生活随笔</span>
+            <h3>一个人的周末时光</h3>
+            <p>享受独处的时光，给自己一些安静的空间...</p>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar"></i> 2024-01-03</span>
+              <span class="views-count"><i class="fas fa-eye"></i> 128</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-card fade-in delay-1" data-category="tech" data-post-id="post6">
+          <div class="blog-image"></div>
+          <div class="blog-content">
+            <span class="blog-category">技术分享</span>
+            <h3>CSS动画入门指南</h3>
+            <p>学习CSS动画的基础知识和实用技巧...</p>
+            <div class="blog-meta">
+              <span><i class="fas fa-calendar"></i> 2023-12-28</span>
+              <span class="views-count"><i class="fas fa-eye"></i> 201</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination fade-in delay-3">
+        <a href="#"><i class="fas fa-chevron-left"></i></a>
+        <a href="#" class="active">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+        <a href="#"><i class="fas fa-chevron-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="padding: 50px 20px; text-align: center; border-top: 1px solid var(--glass-border);">
+      <p>&copy; 2026 RuoYing. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/blog.js"></script>
+</body>
+
+</html>

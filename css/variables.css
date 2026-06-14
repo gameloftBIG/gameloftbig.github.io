@@ -1,0 +1,29 @@
+:root {
+
+  --bg: #070015;
+
+  --card-bg: rgba(255, 255, 255, 0.06);
+
+  --glass-border:
+    rgba(255, 255, 255, 0.12);
+
+  --text-main: #ffffff;
+
+  --text-secondary: #b8b6d4;
+
+  --purple: #6A00FF;
+
+  --pink: #D000FF;
+
+  --orange: #FF5E62;
+
+  --cyan: #00CED1;
+
+  --yellow: #FFD700;
+
+  --glow:
+    0 0 40px rgba(208, 0, 255, .35);
+
+  --radius: 20px;
+
+}

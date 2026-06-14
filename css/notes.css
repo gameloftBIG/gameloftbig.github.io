@@ -1,0 +1,112 @@
+.notes-section {
+  padding: 120px 0 100px;
+}
+
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.note-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 25px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border-left: 3px solid var(--purple);
+}
+
+.note-card:hover {
+  transform: translateX(10px);
+  border-color: var(--pink);
+  box-shadow: var(--glow);
+}
+
+.note-card .note-date {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.note-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: var(--text-main);
+  line-height: 1.4;
+}
+
+.note-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.note-card .note-tags {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.note-card .note-tag {
+  padding: 4px 12px;
+  background: rgba(106, 0, 255, 0.1);
+  border-radius: 15px;
+  font-size: 0.75rem;
+  color: var(--purple);
+}
+
+.notes-sidebar {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.notes-sidebar h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: var(--text-main);
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag-cloud button {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--glass-border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.tag-cloud button:hover,
+.tag-cloud button.active {
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  color: white;
+  border-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .notes-grid {
+    grid-template-columns: 1fr;
+  }
+}
