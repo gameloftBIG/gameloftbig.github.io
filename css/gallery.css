@@ -127,11 +127,11 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.95);
   z-index: 2000;
+  flex-direction: column;
 }
 
 .album-modal.active {
   display: flex;
-  flex-direction: column;
 }
 
 .album-modal .close-btn {
@@ -164,6 +164,8 @@
   display: flex;
   flex-direction: column;
   padding: 80px 20px 20px;
+  height: 100%;
+  min-height: 0;
 }
 
 .album-header {
@@ -183,6 +185,7 @@
 
 .album-scroll-area {
   flex: 1;
+  max-height: calc(100vh - 200px);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
