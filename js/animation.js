@@ -9,11 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
   let itemsArray = [];
 
   galleryItems.forEach((item, index) => {
+    const galleryImage = item.querySelector('.gallery-image');
+    const imgElement = galleryImage.querySelector('img');
+    
+    let imageUrl = '';
+    if (imgElement) {
+      imageUrl = imgElement.src;
+    } else {
+      imageUrl = galleryImage.style.backgroundImage.replace(/url\(['"]?(.+?)['"]?\)/, '$1');
+    }
+    
     itemsArray.push({
       index: index,
       title: item.querySelector('.gallery-info h4').textContent,
       date: item.querySelector('.gallery-info p').textContent,
-      image: item.querySelector('.gallery-image').style.background
+      image: imageUrl
     });
 
     item.addEventListener('click', () => {
@@ -26,12 +36,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const item = itemsArray[index];
     modalTitle.textContent = item.title;
     modalDate.textContent = item.date;
+    
+    if (item.image) {
+      modalImage.src = item.image;
+      modalImage.alt = item.title;
+    }
+    
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     modal.classList.remove('active');
+    modalImage.src = '';
     document.body.style.overflow = '';
   }
 
@@ -59,5 +76,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   modal.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
+  });
+  
+  // 图片加载错误处理
+  modalImage.addEventListener('error', () => {
+    console.error('图片加载失败:', modalImage.src);
   });
 });
