@@ -2,205 +2,354 @@
   padding: 120px 0 100px;
 }
 
-.gallery-grid {
+.gallery-albums {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.gallery-item {
+.album-card {
   position: relative;
   border-radius: var(--radius);
   overflow: hidden;
-  aspect-ratio: 1;
   cursor: pointer;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.gallery-item .gallery-image {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--purple), var(--pink));
-  background-size: cover;
-  background-position: center;
-  transition: transform 0.3s ease;
+.album-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
-.gallery-item:hover .gallery-image {
-  transform: scale(1.1);
-}
-
-/* 真实图片样式 */
-.gallery-item.has-image .gallery-image {
-  background: none;
+.album-cover {
   position: relative;
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
 }
 
-.gallery-item.has-image .gallery-image::before {
-  content: '';
-  display: block;
-  padding-top: 100%;
-}
-
-.gallery-item.has-image .gallery-image img {
-  position: absolute;
-  top: 0;
-  left: 0;
+.album-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
-.gallery-item.has-image:hover .gallery-image img {
-  transform: scale(1.1);
+.album-card:hover .album-cover img {
+  transform: scale(1.15);
 }
 
-.gallery-item .gallery-overlay {
+.album-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.7) 0%, rgba(255, 105, 180, 0.7) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(5px);
 }
 
-.gallery-item:hover .gallery-overlay {
+.album-card:hover .album-overlay {
   opacity: 1;
 }
 
-.gallery-item .gallery-overlay i {
-  font-size: 2rem;
+.album-overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   color: white;
-}
-
-.gallery-item .gallery-info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 15px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-  opacity: 0;
   transform: translateY(20px);
-  transition: all 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
-.gallery-item:hover .gallery-info {
-  opacity: 1;
+.album-card:hover .album-overlay-content {
   transform: translateY(0);
 }
 
-.gallery-item .gallery-info h4 {
+.album-overlay-content i {
+  font-size: 3rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.album-overlay-content span {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.album-overlay-content .photo-count {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.album-info {
+  padding: 20px;
+  background: var(--card-bg);
+}
+
+.album-info h3 {
   color: var(--text-main);
-  font-size: 1rem;
+  font-size: 1.3rem;
   margin-bottom: 5px;
 }
 
-.gallery-item .gallery-info p {
+.album-info p {
   color: var(--text-secondary);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
-.gallery-modal {
+.album-modal {
   display: none;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.95);
   z-index: 2000;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
 }
 
-.gallery-modal.active {
+.album-modal.active {
   display: flex;
+  flex-direction: column;
 }
 
-.gallery-modal .modal-content {
-  max-width: 90vw;
-  max-height: 90vh;
-  position: relative;
-}
-
-.gallery-modal .modal-content img {
-  max-width: 100%;
-  max-height: 80vh;
-  border-radius: var(--radius);
-}
-
-.gallery-modal .modal-info {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.gallery-modal .modal-info h3 {
-  color: var(--text-main);
-  margin-bottom: 5px;
-}
-
-.gallery-modal .modal-info p {
-  color: var(--text-secondary);
-}
-
-.gallery-modal .close-btn {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  width: 40px;
-  height: 40px;
+.album-modal .close-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background: var(--card-bg);
-  border: 1px solid var(--glass-border);
-  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
   font-size: 1.2rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  z-index: 2010;
 }
 
-.gallery-modal .close-btn:hover {
+.album-modal .close-btn:hover {
   background: var(--pink);
   border-color: var(--pink);
+  transform: scale(1.1);
 }
 
-.gallery-modal .nav-btn {
+.album-modal-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 20px 20px;
+}
+
+.album-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.album-header h2 {
+  color: var(--text-main);
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.album-header p {
+  color: var(--text-secondary);
+}
+
+.album-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.album-scroll-area::-webkit-scrollbar {
+  width: 8px;
+}
+
+.album-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.album-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.album-scroll-area::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 280px));
+  gap: 20px;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.album-image-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.album-image-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.album-image-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.album-image-item:hover img {
+  transform: scale(1.1);
+}
+
+.image-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.98);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-modal.active {
+  display: flex;
+}
+
+.image-modal .close-btn {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 20px;
+  right: 20px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: var(--card-bg);
-  border: 1px solid var(--glass-border);
-  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 3010;
+}
+
+.image-modal .close-btn:hover {
+  background: var(--pink);
+  border-color: var(--pink);
+  transform: scale(1.1);
+}
+
+.image-modal .nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
   font-size: 1.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  z-index: 3010;
 }
 
-.gallery-modal .nav-btn:hover {
+.image-modal .nav-btn:hover {
   background: var(--pink);
   border-color: var(--pink);
+  transform: translateY(-50%) scale(1.1);
 }
 
-.gallery-modal .prev-btn {
-  left: -60px;
+.image-modal .prev-btn {
+  left: 20px;
 }
 
-.gallery-modal .next-btn {
-  right: -60px;
+.image-modal .next-btn {
+  right: 20px;
+}
+
+.image-modal-content {
+  max-width: 95vw;
+  max-height: 90vh;
+  position: relative;
+}
+
+.image-modal-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  cursor: grab;
+  transition: transform 0.2s ease;
+}
+
+.image-modal-content img:active {
+  cursor: grabbing;
+}
+
+.image-modal-content img.zoomed {
+  cursor: grabbing;
+}
+
+.image-info {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.image-info h3 {
+  color: var(--text-main);
+  margin-bottom: 5px;
+}
+
+.image-info p {
+  color: var(--text-secondary);
 }
 
 .gallery-categories {
@@ -230,15 +379,79 @@
 }
 
 @media (max-width: 768px) {
-  .gallery-grid {
+  .gallery-section {
+    padding: 100px 0 80px;
+  }
+
+  .gallery-albums {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .album-cover {
+    aspect-ratio: 4/3;
+  }
+
+  .album-overlay-content i {
+    font-size: 2.5rem;
+  }
+
+  .album-overlay-content span {
+    font-size: 1rem;
+  }
+
+  .album-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
-  .gallery-modal .nav-btn {
+  .album-modal .close-btn {
+    width: 45px;
+    height: 45px;
+    top: 15px;
+    right: 15px;
+  }
+
+  .album-modal-content {
+    padding: 70px 15px 15px;
+  }
+
+  .album-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .image-modal .close-btn {
+    width: 45px;
+    height: 45px;
+    top: 15px;
+    right: 15px;
+  }
+
+  .image-modal .nav-btn {
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .image-modal .prev-btn {
+    left: 10px;
+  }
+
+  .image-modal .next-btn {
+    right: 10px;
+  }
+
+  .image-modal-content img {
+    max-height: 70vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .image-modal .nav-btn {
     display: none;
-  }
-
-  .gallery-modal .close-btn {
-    top: -50px;
   }
 }
