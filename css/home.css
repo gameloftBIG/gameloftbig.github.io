@@ -871,3 +871,50 @@
 #audioPlayer {
   display: none;
 }
+
+/* 移动端响应式适配 */
+@media (max-width: 500px) {
+  .music-player {
+    padding: 20px;
+  }
+  
+  .player-controls {
+    gap: 15px;
+  }
+  
+  .song-title {
+    font-size: 1.1rem;
+  }
+  
+  .song-artist {
+    font-size: 0.85rem;
+  }
+  
+  .controls-row {
+    gap: 12px;
+  }
+  
+  .control-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+  
+  .play-btn {
+    width: 52px;
+    height: 52px;
+  }
+  
+  .volume-control {
+    gap: 6px;
+    margin-left: 8px;
+  }
+  
+  .volume-control i {
+    font-size: 0.85rem;
+  }
+  
+  .volume-control input[type="range"] {
+    width: 50px;
+  }
+}
