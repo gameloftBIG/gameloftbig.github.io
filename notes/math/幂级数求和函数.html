@@ -26,7 +26,7 @@
       min-height: 100vh;
     }
 
-    /* 主标题优化 - 增强视觉重心 */
+    /* 主标题优化 - 亮色系渐变 */
     .note-header {
       text-align: center;
       margin-bottom: 60px;
@@ -38,11 +38,12 @@
       letter-spacing: 2px;
       color: var(--text-main);
       margin-bottom: 20px;
-      background: linear-gradient(135deg, var(--purple) 0%, var(--pink) 50%, rgba(208, 0, 255, 0.8) 100%);
+      background: linear-gradient(135deg, #b366ff 0%, #ff80ff 40%, #ffffff 70%, #ffb3ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      text-shadow: 0 0 30px rgba(106, 0, 255, 0.3);
+      text-shadow: 0 0 40px rgba(179, 102, 255, 0.4),
+        0 0 80px rgba(255, 128, 255, 0.2);
       animation: titleGlow 3s ease-in-out infinite alternate;
     }
 
@@ -92,7 +93,7 @@
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
-    /* 二级标题优化 - 渐变效果 */
+    /* 二级标题优化 - 亮色系渐变 */
     .note-content h2 {
       font-size: 1.6rem;
       font-weight: 600;
@@ -100,21 +101,22 @@
       margin: 40px 0 20px;
       padding-bottom: 12px;
       border-bottom: 2px solid transparent;
-      border-image: linear-gradient(90deg, var(--purple) 0%, rgba(106, 0, 255, 0.3) 100%) 1;
-      background: linear-gradient(90deg, var(--purple) 0%, rgba(208, 0, 255, 0.7) 100%);
+      border-image: linear-gradient(90deg, #b366ff 0%, rgba(179, 102, 255, 0.4) 100%) 1;
+      background: linear-gradient(90deg, #b366ff 0%, #ff99ff 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       letter-spacing: 1px;
     }
 
-    /* 三级标题优化 - 增加粗细 */
+    /* 三级标题优化 - 亮色 */
     .note-content h3 {
       font-size: 1.25rem;
       font-weight: 500;
-      color: rgba(208, 0, 255, 0.85);
+      color: #ff99ff;
       margin: 30px 0 15px;
       letter-spacing: 0.5px;
+      text-shadow: 0 0 15px rgba(255, 153, 255, 0.3);
     }
 
     /* 正文优化 - 提高亮度 */
@@ -124,25 +126,25 @@
       line-height: 1.8;
     }
 
-    /* 公式卡片优化 - 柔和渐变背景 */
+    /* 公式卡片优化 - 亮色渐变背景 */
     .note-content .formula-box {
-      background: linear-gradient(135deg, rgba(106, 0, 255, 0.08) 0%, rgba(30, 10, 60, 0.12) 100%);
-      border: 1px solid rgba(106, 0, 255, 0.25);
+      background: linear-gradient(135deg, rgba(179, 102, 255, 0.1) 0%, rgba(255, 153, 255, 0.08) 100%);
+      border: 1px solid rgba(179, 102, 255, 0.3);
       border-radius: 12px;
       padding: 25px 30px;
       margin: 25px 0;
       text-align: center;
       overflow-x: auto;
-      box-shadow: 0 4px 20px rgba(106, 0, 255, 0.15),
+      box-shadow: 0 4px 20px rgba(179, 102, 255, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
       transition: all 0.3s ease;
     }
 
     .note-content .formula-box:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(106, 0, 255, 0.25),
+      box-shadow: 0 8px 30px rgba(179, 102, 255, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      border-color: rgba(106, 0, 255, 0.35);
+      border-color: rgba(179, 102, 255, 0.45);
     }
 
     .note-content .formula-box .MathJax {
@@ -164,20 +166,20 @@
       color: rgba(255, 255, 255, 0.88);
     }
 
-    /* 代码优化 */
+    /* 代码优化 - 亮色 */
     .note-content code {
-      background: rgba(106, 0, 255, 0.12);
+      background: rgba(179, 102, 255, 0.15);
       padding: 3px 10px;
       border-radius: 4px;
-      color: rgba(208, 0, 255, 0.9);
+      color: #ff99ff;
       font-family: 'Courier New', monospace;
       font-weight: 500;
     }
 
     /* 引用块优化 - 提高亮度 */
     .note-content blockquote {
-      border-left: 3px solid var(--purple);
-      background: linear-gradient(90deg, rgba(106, 0, 255, 0.08) 0%, rgba(20, 10, 50, 0.05) 100%);
+      border-left: 3px solid #b366ff;
+      background: linear-gradient(90deg, rgba(179, 102, 255, 0.1) 0%, rgba(255, 153, 255, 0.05) 100%);
       padding: 18px 25px;
       margin: 25px 0;
       border-radius: 8px;
@@ -206,8 +208,8 @@
     }
 
     .note-content th {
-      background: linear-gradient(135deg, rgba(106, 0, 255, 0.15) 0%, rgba(30, 10, 60, 0.1) 100%);
-      color: var(--purple);
+      background: linear-gradient(135deg, rgba(179, 102, 255, 0.2) 0%, rgba(255, 153, 255, 0.1) 100%);
+      color: #b366ff;
       font-weight: 600;
     }
 
@@ -216,28 +218,28 @@
       color: rgba(255, 255, 255, 0.88);
     }
 
-    /* 分隔线优化 */
+    /* 分隔线优化 - 亮色渐变 */
     .note-content hr {
       border: none;
       height: 1px;
-      background: linear-gradient(90deg, transparent 0%, rgba(106, 0, 255, 0.3) 50%, transparent 100%);
+      background: linear-gradient(90deg, transparent 0%, #b366ff 30%, #ff99ff 50%, #b366ff 70%, transparent 100%);
       margin: 40px 0;
     }
 
-    /* 返回按钮优化 */
+    /* 返回按钮优化 - 亮色渐变 */
     .back-btn {
       display: inline-flex;
       align-items: center;
       gap: 12px;
       padding: 14px 30px;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
+      background: linear-gradient(135deg, #b366ff, #ff99ff);
       color: white;
       border-radius: 25px;
       text-decoration: none;
       margin-top: 40px;
       transition: all 0.3s ease;
       font-weight: 500;
-      box-shadow: 0 4px 15px rgba(106, 0, 255, 0.3);
+      box-shadow: 0 4px 20px rgba(179, 102, 255, 0.4);
     }
 
     .back-btn:hover {
@@ -256,10 +258,10 @@
 
     .note-tag-footer {
       padding: 8px 18px;
-      background: rgba(106, 0, 255, 0.12);
-      border: 1px solid rgba(106, 0, 255, 0.25);
+      background: rgba(179, 102, 255, 0.15);
+      border: 1px solid rgba(179, 102, 255, 0.3);
       border-radius: 20px;
-      color: rgba(208, 0, 255, 0.85);
+      color: #ff99ff;
       font-size: 0.85rem;
       font-weight: 500;
       transition: all 0.3s ease;
