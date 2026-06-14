@@ -109,6 +109,43 @@
     </div>
   </section>
 
+  <section class="music-section">
+    <div class="container">
+      <h2 class="section-title">🎵 音乐推荐</h2>
+      <div class="music-player">
+        <div class="player-content">
+          <div class="player-controls">
+            <div class="song-info">
+              <h3 class="song-title">How to Love</h3>
+              <p class="song-artist">Cash Cash & Sofia Reyes</p>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-track">
+                <div class="progress-fill" id="progressFill"></div>
+                <div class="progress-thumb" id="progressThumb"></div>
+              </div>
+              <div class="time-display">
+                <span id="currentTime">0:00</span>
+                <span id="totalTime">0:00</span>
+              </div>
+            </div>
+            <div class="controls-row">
+              <button class="control-btn" id="prevBtn"><i class="fas fa-backward"></i></button>
+              <button class="control-btn play-btn" id="playBtn"><i class="fas fa-play"></i></button>
+              <button class="control-btn" id="nextBtn"><i class="fas fa-forward"></i></button>
+              <div class="volume-control">
+                <i class="fas fa-volume-down"></i>
+                <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                <i class="fas fa-volume-up"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <audio id="audioPlayer" src="music/How to Love (feat. Sofia Reyes) - Cash Cash、Sofia Reyes.mp3"></audio>
+      </div>
+    </div>
+  </section>
+
   <footer>
     <div class="container" style="padding: 50px 20px; text-align: center; border-top: 1px solid var(--glass-border);">
       <p>&copy; 2026 RuoYing. All rights reserved.</p>
@@ -116,7 +153,7 @@
   </footer>
 
   <script src="js/shooting-stars.js"></script>
-<script src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>

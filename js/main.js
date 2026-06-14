@@ -238,6 +238,154 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(SiteData.getData());
   };
 
+  // 音乐播放器功能
+  const audioPlayer = document.getElementById('audioPlayer');
+  const playBtn = document.getElementById('playBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const progressFill = document.getElementById('progressFill');
+  const progressThumb = document.getElementById('progressThumb');
+  const progressTrack = document.querySelector('.progress-track');
+  const currentTimeEl = document.getElementById('currentTime');
+  const totalTimeEl = document.getElementById('totalTime');
+  const volumeSlider = document.getElementById('volumeSlider');
+
+  // 淡入淡出效果参数
+  const FADE_DURATION = 1000; // 淡入淡出时长（毫秒）
+  const FADE_INTERVAL = 50; // 每次调整音量的间隔
+
+  // 淡入效果
+  function fadeIn() {
+    const targetVolume = volumeSlider.value / 100;
+    const step = targetVolume / (FADE_DURATION / FADE_INTERVAL);
+    let currentVolume = 0;
+
+    audioPlayer.volume = 0;
+
+    const fadeInterval = setInterval(() => {
+      currentVolume += step;
+      if (currentVolume >= targetVolume) {
+        audioPlayer.volume = targetVolume;
+        clearInterval(fadeInterval);
+      } else {
+        audioPlayer.volume = currentVolume;
+      }
+    }, FADE_INTERVAL);
+  }
+
+  // 淡出效果
+  function fadeOut(callback) {
+    const startVolume = audioPlayer.volume;
+    const step = startVolume / (FADE_DURATION / FADE_INTERVAL);
+    let currentVolume = startVolume;
+
+    const fadeInterval = setInterval(() => {
+      currentVolume -= step;
+      if (currentVolume <= 0) {
+        audioPlayer.volume = 0;
+        clearInterval(fadeInterval);
+        if (callback) callback();
+      } else {
+        audioPlayer.volume = currentVolume;
+      }
+    }, FADE_INTERVAL);
+  }
+
+  if (audioPlayer) {
+    // 播放/暂停按钮（带淡入淡出）
+    playBtn.addEventListener('click', () => {
+      if (audioPlayer.paused) {
+        fadeIn();
+        audioPlayer.play();
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      } else {
+        fadeOut(() => {
+          audioPlayer.pause();
+        });
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+      }
+    });
+
+    // 上一首（模拟，带淡出后重置）
+    prevBtn.addEventListener('click', () => {
+      if (!audioPlayer.paused) {
+        fadeOut(() => {
+          audioPlayer.currentTime = 0;
+          fadeIn();
+        });
+      } else {
+        audioPlayer.currentTime = 0;
+      }
+    });
+
+    // 下一首（模拟，重新播放，带淡出后重新淡入）
+    nextBtn.addEventListener('click', () => {
+      if (!audioPlayer.paused) {
+        fadeOut(() => {
+          audioPlayer.currentTime = 0;
+          fadeIn();
+          audioPlayer.play();
+        });
+      } else {
+        audioPlayer.currentTime = 0;
+        fadeIn();
+        audioPlayer.play();
+        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      }
+    });
+
+    // 更新进度条
+    audioPlayer.addEventListener('timeupdate', () => {
+      const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+      progressFill.style.width = `${progress}%`;
+      progressThumb.style.left = `${progress}%`;
+
+      // 更新时间显示
+      currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+      totalTimeEl.textContent = formatTime(audioPlayer.duration);
+    });
+
+    // 音频加载完成
+    audioPlayer.addEventListener('loadedmetadata', () => {
+      totalTimeEl.textContent = formatTime(audioPlayer.duration);
+    });
+
+    // 进度条点击跳转（带淡出后重新淡入）
+    progressTrack.addEventListener('click', (e) => {
+      const rect = progressTrack.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      const newTime = percent * audioPlayer.duration;
+
+      if (!audioPlayer.paused) {
+        fadeOut(() => {
+          audioPlayer.currentTime = newTime;
+          fadeIn();
+        });
+      } else {
+        audioPlayer.currentTime = newTime;
+      }
+    });
+
+    // 音量控制
+    volumeSlider.addEventListener('input', () => {
+      audioPlayer.volume = volumeSlider.value / 100;
+    });
+
+    // 播放结束（带淡出）
+    audioPlayer.addEventListener('ended', () => {
+      fadeOut();
+      playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    });
+  }
+
+  // 格式化时间
+  function formatTime(seconds) {
+    if (isNaN(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+
   // 重置数据
   window.resetData = function () {
     localStorage.removeItem('siteData');
