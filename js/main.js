@@ -249,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const currentTimeEl = document.getElementById('currentTime');
   const totalTimeEl = document.getElementById('totalTime');
   const volumeSlider = document.getElementById('volumeSlider');
+  const loadingIndicator = document.getElementById('loadingIndicator');
 
   // 淡入淡出效果参数
   const FADE_DURATION = 1000; // 淡入淡出时长（毫秒）
@@ -345,9 +346,21 @@ document.addEventListener('DOMContentLoaded', () => {
       totalTimeEl.textContent = formatTime(audioPlayer.duration);
     });
 
+    // 音频开始加载
+    audioPlayer.addEventListener('loadstart', () => {
+      loadingIndicator.classList.add('active');
+    });
+
     // 音频加载完成
     audioPlayer.addEventListener('loadedmetadata', () => {
+      loadingIndicator.classList.remove('active');
       totalTimeEl.textContent = formatTime(audioPlayer.duration);
+    });
+
+    // 音频加载失败
+    audioPlayer.addEventListener('error', () => {
+      loadingIndicator.classList.remove('active');
+      console.error('音频加载失败');
     });
 
     // 进度条点击跳转（带淡出后重新淡入）
