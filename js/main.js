@@ -4,18 +4,11 @@ const SiteData = {
   init() {
     if (!localStorage.getItem('siteData')) {
       const initialData = {
-        totalViews: 1000,
-        blogPosts: 6,
-        notes: 8,
+        totalViews: 1,
+        blogPosts: 0,
+        notes: 1,
         photos: 8,
-        posts: {
-          'post1': { views: 234, title: '生活中的小确幸' },
-          'post2': { views: 189, title: '学习笔记：前端开发心得' },
-          'post3': { views: 156, title: '春日漫步：城市中的一抹绿意' },
-          'post4': { views: 142, title: '《人类简史》读后感' },
-          'post5': { views: 128, title: '一个人的周末时光' },
-          'post6': { views: 201, title: 'CSS动画入门指南' }
-        },
+        posts: {},
         lastVisit: null,
         pageViews: {}
       };
@@ -104,11 +97,31 @@ document.addEventListener('DOMContentLoaded', () => {
   if (statNumbers.length > 0) {
     const currentData = SiteData.getData();
 
-    // 使用 localStorage 中的数据
-    const values = [currentData.blogPosts, currentData.notes, currentData.photos, currentData.totalViews];
+    // 获取笔记的真实浏览次数
+    const noteViews = parseInt(localStorage.getItem('note_views_幂级数求和函数')) || 0;
 
-    statNumbers.forEach((element, index) => {
-      animateNumber(element, values[index], 2000);
+    // 根据data-stat属性设置对应的值
+    statNumbers.forEach((element) => {
+      const statType = element.dataset.stat;
+      let value = 0;
+
+      switch (statType) {
+        case 'blogs':
+          value = currentData.blogPosts;
+          break;
+        case 'notes':
+          value = currentData.notes;
+          break;
+        case 'photos':
+          value = currentData.photos;
+          break;
+        case 'views':
+          // 浏览次数 = 总浏览量 + 笔记浏览次数
+          value = currentData.totalViews + noteViews;
+          break;
+      }
+
+      animateNumber(element, value, 2000);
     });
   }
 
