@@ -17,6 +17,8 @@
   transition: all 0.3s ease;
   cursor: pointer;
   border-left: 3px solid var(--purple);
+  text-decoration: none;
+  display: block;
 }
 
 .note-card:hover {

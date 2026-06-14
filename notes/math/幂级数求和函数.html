@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>幂级数求和函数 - RuoYing</title>
+  <link rel="icon" type="image/x-icon" href="../../favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="../../favicon-512x512.png">
+  <link rel="apple-touch-icon" href="../../favicon-512x512.png">
+  <link rel="stylesheet" href="../../css/variables.css">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- MathJax for math formulas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" async></script>
+  <style>
+    .note-detail-section {
+      padding: 120px 0 100px;
+      min-height: 100vh;
+    }
+
+    .note-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .note-header h1 {
+      font-size: 2.5rem;
+      color: var(--text-main);
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .note-meta {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .note-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .note-content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 40px;
+      line-height: 1.8;
+      color: var(--text-main);
+    }
+
+    .note-content h2 {
+      font-size: 1.5rem;
+      color: var(--purple);
+      margin: 30px 0 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--purple);
+    }
+
+    .note-content h3 {
+      font-size: 1.2rem;
+      color: var(--pink);
+      margin: 25px 0 10px;
+    }
+
+    .note-content p {
+      margin: 15px 0;
+      color: var(--text-secondary);
+    }
+
+    .note-content .formula-box {
+      background: rgba(106, 0, 255, 0.05);
+      border: 1px solid rgba(106, 0, 255, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .note-content .formula-box .MathJax {
+      font-size: 1.2em !important;
+    }
+
+    .note-content ul,
+    .note-content ol {
+      margin: 15px 0;
+      padding-left: 30px;
+      color: var(--text-secondary);
+    }
+
+    .note-content li {
+      margin: 8px 0;
+    }
+
+    .note-content code {
+      background: rgba(106, 0, 255, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--pink);
+      font-family: 'Courier New', monospace;
+    }
+
+    .note-content blockquote {
+      border-left: 3px solid var(--purple);
+      background: rgba(106, 0, 255, 0.05);
+      padding: 15px 20px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+
+    .note-content blockquote p {
+      margin: 0;
+    }
+
+    .note-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    .note-content th,
+    .note-content td {
+      border: 1px solid var(--glass-border);
+      padding: 12px;
+      text-align: center;
+    }
+
+    .note-content th {
+      background: rgba(106, 0, 255, 0.1);
+      color: var(--purple);
+    }
+
+    .note-content hr {
+      border: none;
+      height: 1px;
+      background: var(--glass-border);
+      margin: 30px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 25px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+
+    .note-tags-footer {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .note-tag-footer {
+      padding: 6px 15px;
+      background: rgba(106, 0, 255, 0.1);
+      border-radius: 15px;
+      color: var(--purple);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .note-content {
+        padding: 25px;
+      }
+
+      .note-header h1 {
+        font-size: 2rem;
+      }
+
+      .note-meta {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="../../index.html" class="logo">
+        <img src="../../favicon-512x512.png" alt="Avatar" class="avatar">
+        <span>R</span><span class="logo-text">uoYing</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">首页</a></li>
+        <li><a href="../../about.html">关于</a></li>
+        <li><a href="../../blog.html">博客</a></li>
+        <li><a href="../../notes.html" class="active">笔记</a></li>
+        <li><a href="../../gallery.html">相册</a></li>
+        <li><a href="../../contact.html">联系</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="note-detail-section">
+    <div class="container">
+      <div class="note-header">
+        <h1>幂级数求和函数</h1>
+        <div class="note-meta">
+          <span><i class="fas fa-calendar"></i> 2026-06-14</span>
+          <span><i class="fas fa-folder"></i> 数学</span>
+          <span><i class="fas fa-eye"></i> 128 次浏览</span>
+        </div>
+      </div>
+
+      <div class="note-content">
+        <h2>一、通用步骤</h2>
+        <p>数项级数 \(\sum_{n=1}^{\infty} a_n\) 求和的通用方法：</p>
+
+        <h3>步骤1：识别级数类型</h3>
+        <ul>
+          <li>等比级数：\(\sum ar^n\)</li>
+          <li>幂级数：\(\sum a_n x^n\)</li>
+          <li>泰勒级数展开</li>
+        </ul>
+
+        <h3>步骤2：确定收敛域</h3>
+        <div class="formula-box">
+          \[R = \lim_{n \to \infty} \left| \frac{a_n}{a_{n+1}} \right|\]
+        </div>
+        <p>收敛半径 \(R\)，收敛域为 \((-R, R)\)</p>
+
+        <h2>二、常用幂级数求和公式</h2>
+
+        <h3>1. 几何级数</h3>
+        <div class="formula-box">
+          \[\sum_{n=0}^{\infty} x^n = \frac{1}{1-x}, \quad |x| < 1\] </div>
+
+            <h3>2. 指数函数</h3>
+            <div class="formula-box">
+              \[\sum_{n=0}^{\infty} \frac{x^n}{n!} = e^x, \quad x \in \mathbb{R}\]
+            </div>
+
+            <h3>3. 对数函数</h3>
+            <div class="formula-box">
+              \[\sum_{n=1}^{\infty} \frac{x^n}{n} = -\ln(1-x), \quad |x| < 1\] </div>
+
+                <h3>4. 三角函数</h3>
+                <div class="formula-box">
+                  \[\sin x = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}\]
+                </div>
+                <div class="formula-box">
+                  \[\cos x = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}\]
+                </div>
+
+                <h2>三、求和技巧</h2>
+
+                <h3>技巧1：逐项求导/积分</h3>
+                <blockquote>
+                  <p>若 \(S(x) = \sum a_n x^n\)，则：</p>
+                  <p>\(S'(x) = \sum n a_n x^{n-1}\)</p>
+                  <p>\(\int S(x) dx = \sum \frac{a_n}{n+1} x^{n+1}\)</p>
+                </blockquote>
+
+                <h3>技巧2：变量替换</h3>
+                <p>将复杂级数通过变量替换转化为已知级数形式</p>
+
+                <h3>技巧3：组合拆分</h3>
+                <div class="formula-box">
+                  \[\sum (a_n + b_n) x^n = \sum a_n x^n + \sum b_n x^n\]
+                </div>
+
+                <h2>四、典型例题</h2>
+
+                <h3>例题1</h3>
+                <p>求 \(\sum_{n=1}^{\infty} n x^{n-1}\) 的和函数</p>
+
+                <p><strong>解：</strong></p>
+                <p>设 \(S(x) = \sum_{n=1}^{\infty} n x^{n-1}\)</p>
+                <p>积分得：\(\int_0^x S(t) dt = \sum_{n=1}^{\infty} x^n = \frac{x}{1-x}\)</p>
+                <p>再求导：\(S(x) = \frac{d}{dx}\left(\frac{x}{1-x}\right) = \frac{1}{(1-x)^2}\)</p>
+
+                <div class="formula-box">
+                  \[\boxed{S(x) = \frac{1}{(1-x)^2}, \quad |x| < 1}\] </div>
+
+                    <h3>例题2</h3>
+                    <p>求 \(\sum_{n=1}^{\infty} \frac{x^n}{n(n+1)}\) 的和函数</p>
+
+                    <p><strong>解：</strong></p>
+                    <p>设 \(S(x) = \sum_{n=1}^{\infty} \frac{x^n}{n(n+1)}\)</p>
+                    <p>利用裂项：\(\frac{1}{n(n+1)} = \frac{1}{n} - \frac{1}{n+1}\)</p>
+                    <p>则：\(S(x) = \sum \frac{x^n}{n} - \sum \frac{x^n}{n+1}\)</p>
+
+                    <div class="formula-box">
+                      \[\boxed{S(x) = 1 + \frac{1-x}{x}\ln(1-x), \quad |x| < 1, x \neq 0}\] </div>
+
+                        <hr>
+
+                        <h2>五、注意事项</h2>
+                        <ul>
+                          <li>注意收敛域的端点需要单独检验</li>
+                          <li>逐项求导/积分后收敛半径不变</li>
+                          <li>幂级数在收敛域内可进行四则运算</li>
+                          <li>泰勒展开是幂级数的重要应用</li>
+                        </ul>
+
+                        <div class="note-tags-footer">
+                          <span class="note-tag-footer">数学</span>
+                          <span class="note-tag-footer">级数</span>
+                          <span class="note-tag-footer">微积分</span>
+                        </div>
+
+                        <div style="text-align: center;">
+                          <a href="../../notes.html" class="back-btn">
+                            <i class="fas fa-arrow-left"></i>
+                            返回笔记列表
+                          </a>
+                        </div>
+                    </div>
+                </div>
+  </section>
+
+  <footer>
+    <div class="container" style="padding: 50px 20px; text-align: center; border-top: 1px solid var(--glass-border);">
+      <p>&copy; 2026 RuoYing. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../../js/main.js"></script>
+  <script>
+    // MathJax配置
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']]
+      },
+      svg: {
+        fontCache: 'global'
+      }
+    };
+  </script>
+</body>
+
+</html>
