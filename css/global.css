@@ -20,7 +20,6 @@ body {
   transition: color 0.5s ease, background-color 0.5s ease;
 }
 
-/* 让所有使用 CSS 变量的元素都有平滑过渡 */
 * {
   transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
 }
@@ -35,6 +34,11 @@ body::before {
   background: radial-gradient(ellipse at center, rgba(106, 0, 255, 0.15) 0%, rgba(208, 0, 255, 0.1) 30%, rgba(255, 94, 98, 0.05) 60%, transparent 80%);
   pointer-events: none;
   z-index: -2;
+  transition: background 0.5s ease;
+}
+
+[data-theme="light"] body::before {
+  background: radial-gradient(ellipse at center, rgba(59, 130, 246, 0.1) 0%, rgba(236, 72, 153, 0.08) 30%, rgba(249, 115, 22, 0.05) 60%, transparent 80%);
 }
 
 #shooting-stars-canvas {
@@ -53,6 +57,10 @@ body::before {
 
 ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -80,11 +88,20 @@ body::before {
   box-shadow: var(--glow);
 }
 
+[data-theme="light"] .card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
 .gradient-text {
   background: linear-gradient(135deg, var(--purple), var(--pink), var(--orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 30px rgba(208, 0, 255, 0.3);
+}
+
+[data-theme="light"] .gradient-text {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
 }
 
 .btn {
@@ -123,11 +140,20 @@ body::before {
   background: rgba(208, 0, 255, 0.1);
 }
 
+[data-theme="light"] .btn-secondary:hover {
+  background: rgba(59, 130, 246, 0.1);
+}
+
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 40px;
   text-align: center;
+  text-shadow: 0 0 30px rgba(208, 0, 255, 0.3);
+}
+
+[data-theme="light"] .section-title {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
 }
 
 .section-subtitle {

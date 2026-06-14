@@ -11,9 +11,18 @@ nav {
   transition: all 0.3s ease;
 }
 
+[data-theme="light"] nav {
+  background: rgba(255, 255, 255, 0.9);
+}
+
 nav.scrolled {
   background: rgba(7, 0, 21, 0.95);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] nav.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
@@ -67,6 +76,7 @@ nav.scrolled {
   display: flex;
   list-style: none;
   gap: 30px;
+  align-items: center;
 }
 
 .nav-links a {
@@ -102,6 +112,34 @@ nav.scrolled {
 
 .nav-links a.active::after {
   width: 100%;
+}
+
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+  margin-left: 10px;
+}
+
+.theme-toggle:hover {
+  background: rgba(208, 0, 255, 0.2);
+  color: var(--text-main);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(208, 0, 255, 0.3);
+}
+
+[data-theme="light"] .theme-toggle:hover {
+  background: rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
 }
 
 .hamburger {
@@ -159,6 +197,13 @@ nav.scrolled {
     padding: 0 !important;
   }
 
+  [data-theme="light"] .nav-links.active {
+    background: rgba(255, 255, 255, 0.95);
+    border-left: 1px solid rgba(59, 130, 246, 0.2);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.15),
+      inset 0 0 60px rgba(59, 130, 246, 0.05);
+  }
+
   .nav-links a {
     font-size: 1.2rem;
     position: relative;
@@ -174,6 +219,10 @@ nav.scrolled {
     transform: scale(0);
     transition: transform 0.3s ease;
     z-index: -1;
+  }
+
+  [data-theme="light"] .nav-links a::before {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(236, 72, 153, 0.1));
   }
 
   .nav-links a:hover::before {
@@ -197,5 +246,9 @@ nav.scrolled {
 
   .logo {
     flex-shrink: 0;
+  }
+
+  .theme-toggle {
+    margin-left: 0;
   }
 }

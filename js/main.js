@@ -1,6 +1,4 @@
-// 数据管理系统
 const SiteData = {
-  // 初始化数据
   init() {
     if (!localStorage.getItem('siteData')) {
       const initialData = {
@@ -10,24 +8,22 @@ const SiteData = {
         photos: 8,
         posts: {},
         lastVisit: null,
-        pageViews: {}
+        pageViews: {},
+        theme: 'dark'
       };
       localStorage.setItem('siteData', JSON.stringify(initialData));
     }
     return JSON.parse(localStorage.getItem('siteData'));
   },
 
-  // 获取数据
   getData() {
     return JSON.parse(localStorage.getItem('siteData'));
   },
 
-  // 保存数据
   saveData(data) {
     localStorage.setItem('siteData', JSON.stringify(data));
   },
 
-  // 增加文章浏览量
   incrementPostViews(postId) {
     const data = this.getData();
     if (data.posts[postId]) {
@@ -39,7 +35,6 @@ const SiteData = {
     return 0;
   },
 
-  // 增加页面浏览量
   incrementPageViews(pageName) {
     const data = this.getData();
     if (!data.pageViews[pageName]) {
@@ -51,16 +46,25 @@ const SiteData = {
     return data.pageViews[pageName];
   },
 
-  // 格式化数字显示
   formatNumber(num) {
     if (num >= 1000) {
       return (num / 1000).toFixed(1) + 'k+';
     }
     return num + '+';
+  },
+
+  getTheme() {
+    const data = this.getData();
+    return data.theme || 'dark';
+  },
+
+  setTheme(theme) {
+    const data = this.getData();
+    data.theme = theme;
+    this.saveData(data);
   }
 };
 
-// 数字递增动画函数
 function animateNumber(element, targetValue, duration) {
   const startValue = 0;
   const startTime = performance.now();
@@ -68,8 +72,6 @@ function animateNumber(element, targetValue, duration) {
   function update(currentTime) {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-
-    // 使用缓动函数使动画更流畅
     const easeOutQuart = 1 - Math.pow(1 - progress, 4);
     const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOutQuart);
 
@@ -83,24 +85,42 @@ function animateNumber(element, targetValue, duration) {
   requestAnimationFrame(update);
 }
 
-// 页面加载时初始化
-document.addEventListener('DOMContentLoaded', () => {
-  // 初始化数据
-  const data = SiteData.init();
+function initTheme() {
+  const savedTheme = SiteData.getTheme();
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeToggle(savedTheme);
+}
 
-  // 记录当前页面访问
+function updateThemeToggle(theme) {
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.innerHTML = theme === 'dark'
+      ? '<i class="fas fa-sun"></i>'
+      : '<i class="fas fa-moon"></i>';
+  }
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+  document.documentElement.setAttribute('data-theme', newTheme);
+  SiteData.setTheme(newTheme);
+  updateThemeToggle(newTheme);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const data = SiteData.init();
+  initTheme();
+
   const currentPage = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
   SiteData.incrementPageViews(currentPage);
 
-  // 更新统计数据显示（首页）
   const statNumbers = document.querySelectorAll('.stat-card .number');
   if (statNumbers.length > 0) {
     const currentData = SiteData.getData();
-
-    // 获取笔记的真实浏览次数
     const noteViews = parseInt(localStorage.getItem('note_views_幂级数求和函数')) || 0;
 
-    // 根据data-stat属性设置对应的值
     statNumbers.forEach((element) => {
       const statType = element.dataset.stat;
       let value = 0;
@@ -116,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
           value = currentData.photos;
           break;
         case 'views':
-          // 浏览次数 = 总浏览量 + 笔记浏览次数
           value = currentData.totalViews + noteViews;
           break;
       }
@@ -125,7 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 各页面加载时更新内容计数到 localStorage
   const blogCount = document.querySelectorAll('.blog-card').length;
   const noteCount = document.querySelectorAll('.note-card').length;
   const photoCount = document.querySelectorAll('.gallery-item').length;
@@ -138,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
     SiteData.saveData(currentData);
   }
 
-  // 更新思绪卡片浏览量
   const blogCards = document.querySelectorAll('.blog-card');
   blogCards.forEach(card => {
     const viewSpan = card.querySelector('.views-count');
@@ -151,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 导航栏功能
   const hamburger = document.querySelector('.hamburger');
   const navLinks = document.querySelector('.nav-links');
 
@@ -171,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 导航栏滚动效果
   window.addEventListener('scroll', () => {
     const nav = document.querySelector('nav');
     if (nav) {
@@ -183,13 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 分类筛选功能
   const categoryButtons = document.querySelectorAll('[data-category], [data-tag]');
   categoryButtons.forEach(button => {
     button.addEventListener('click', (e) => {
       const category = e.target.dataset.category || e.target.dataset.tag;
 
-      // 只筛选卡片元素，不筛选按钮
       const blogCards = document.querySelectorAll('.blog-card[data-category]');
       const noteCards = document.querySelectorAll('.note-card[data-tag]');
       const items = [...blogCards, ...noteCards];
@@ -208,7 +221,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 添加新文章功能（可通过控制台调用）
+  const themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+  }
+
   window.addNewPost = function (postId, title) {
     const data = SiteData.getData();
     data.posts[postId] = { views: 0, title: title };
@@ -217,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`新文章 "${title}" 已添加，ID: ${postId}`);
   };
 
-  // 添加新笔记功能
   window.addNewNote = function () {
     const data = SiteData.getData();
     data.notes++;
@@ -225,7 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`笔记总数: ${data.notes}`);
   };
 
-  // 添加新照片功能
   window.addNewPhoto = function () {
     const data = SiteData.getData();
     data.photos++;
@@ -233,12 +248,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(`照片总数: ${data.photos}`);
   };
 
-  // 查看当前数据
   window.viewData = function () {
     console.log(SiteData.getData());
   };
 
-  // 音乐播放器功能
   const audioPlayer = document.getElementById('audioPlayer');
   const playBtn = document.getElementById('playBtn');
   const prevBtn = document.getElementById('prevBtn');
@@ -251,11 +264,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const volumeSlider = document.getElementById('volumeSlider');
   const loadingIndicator = document.getElementById('loadingIndicator');
 
-  // 淡入淡出效果参数
-  const FADE_DURATION = 1000; // 淡入淡出时长（毫秒）
-  const FADE_INTERVAL = 50; // 每次调整音量的间隔
+  const FADE_DURATION = 1000;
+  const FADE_INTERVAL = 50;
 
-  // 淡入效果
   function fadeIn() {
     const targetVolume = volumeSlider.value / 100;
     const step = targetVolume / (FADE_DURATION / FADE_INTERVAL);
@@ -274,7 +285,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, FADE_INTERVAL);
   }
 
-  // 淡出效果
   function fadeOut(callback) {
     const startVolume = audioPlayer.volume;
     const step = startVolume / (FADE_DURATION / FADE_INTERVAL);
@@ -293,7 +303,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   if (audioPlayer) {
-    // 播放/暂停按钮（带淡入淡出）
     playBtn.addEventListener('click', () => {
       if (audioPlayer.paused) {
         fadeIn();
@@ -309,7 +318,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 上一首（模拟，带淡出后重置）
     prevBtn.addEventListener('click', () => {
       if (!audioPlayer.paused) {
         fadeOut(() => {
@@ -321,7 +329,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 下一首（模拟，重新播放，带淡出后重新淡入）
     nextBtn.addEventListener('click', () => {
       if (!audioPlayer.paused) {
         fadeOut(() => {
@@ -337,35 +344,29 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 更新进度条
     audioPlayer.addEventListener('timeupdate', () => {
       const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
       progressFill.style.width = `${progress}%`;
       progressThumb.style.left = `${progress}%`;
 
-      // 更新时间显示
       currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
       totalTimeEl.textContent = formatTime(audioPlayer.duration);
     });
 
-    // 音频开始加载
     audioPlayer.addEventListener('loadstart', () => {
       loadingIndicator.classList.add('active');
     });
 
-    // 音频加载完成
     audioPlayer.addEventListener('loadedmetadata', () => {
       loadingIndicator.classList.remove('active');
       totalTimeEl.textContent = formatTime(audioPlayer.duration);
     });
 
-    // 音频加载失败
     audioPlayer.addEventListener('error', () => {
       loadingIndicator.classList.remove('active');
       console.error('音频加载失败');
     });
 
-    // 进度条点击跳转（带淡出后重新淡入）
     progressTrack.addEventListener('click', (e) => {
       const rect = progressTrack.getBoundingClientRect();
       const percent = (e.clientX - rect.left) / rect.width;
@@ -381,12 +382,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // 音量控制
     volumeSlider.addEventListener('input', () => {
       audioPlayer.volume = volumeSlider.value / 100;
     });
 
-    // 播放结束（带淡出）
     audioPlayer.addEventListener('ended', () => {
       fadeOut();
       playBtn.innerHTML = '<i class="fas fa-play"></i>';
@@ -394,7 +393,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 格式化时间
   function formatTime(seconds) {
     if (isNaN(seconds)) return '0:00';
     const mins = Math.floor(seconds / 60);
@@ -402,7 +400,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
-  // 重置数据
   window.resetData = function () {
     localStorage.removeItem('siteData');
     SiteData.init();
@@ -410,12 +407,11 @@ document.addEventListener('DOMContentLoaded', () => {
     location.reload();
   };
 
-  // 打字机效果 - 定义要显示的文本和速度（整体在0.8秒内完成）
   const typewriterLines = [
-    { element: 'line1', text: 'Hello,', delay: 10 },       // 6字符 * 10ms = 60ms
-    { element: 'line2', text: "I'm RuoYing.", delay: 10 }, // 14字符 * 10ms = 140ms
-    { element: 'line3', text: 'A student passionate about', delay: 10 }, // 27字符 * 10ms = 270ms
-    { element: 'line4', text: 'technology, mathematics, photography and writing.', delay: 8 } // 50字符 * 8ms = 400ms
+    { element: 'line1', text: 'Hello,', delay: 10 },
+    { element: 'line2', text: "I'm RuoYing.", delay: 10 },
+    { element: 'line3', text: 'A student passionate about', delay: 10 },
+    { element: 'line4', text: 'technology, mathematics, photography and writing.', delay: 8 }
   ];
 
   function typeWriter(elementId, text, speed, isHTML = false, callback) {
@@ -425,7 +421,6 @@ document.addEventListener('DOMContentLoaded', () => {
     element.classList.add('active');
     let i = 0;
 
-    // 添加光标
     const cursor = document.createElement('span');
     cursor.className = 'typewriter-cursor';
     element.appendChild(cursor);
@@ -442,7 +437,6 @@ document.addEventListener('DOMContentLoaded', () => {
         i++;
         setTimeout(type, speed);
       } else {
-        // 打字完成后立即移除光标并执行回调
         cursor.remove();
         if (isHTML) {
           element.innerHTML = text;
@@ -463,18 +457,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const line = typewriterLines[lineIndex];
 
-      // 依次处理每一行
       typeWriter(line.element, line.text, line.delay, line.isHTML || false, () => {
         lineIndex++;
-        setTimeout(processLine, 10); // 行之间极短延迟
+        setTimeout(processLine, 10);
       });
     }
 
-    // 等待滑动动画完成后开始打字（滑动动画0.6秒 + 0.1秒缓冲）
     setTimeout(processLine, 700);
   }
 
-  // 动态颜色渐变效果
   function animateColors() {
     const colors = [
       { purple: '#6A00FF', cyan: '#00CED1', yellow: '#FFD700' },
@@ -486,10 +477,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
     let nextIndex = 1;
     let progress = 0;
-    const transitionDuration = 2000; // 渐变过渡时长（毫秒）
+    const transitionDuration = 2000;
     const root = document.documentElement;
 
-    // 将十六进制颜色转换为RGB数组
     function hexToRgb(hex) {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
       return result ? [
@@ -499,7 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ] : [0, 0, 0];
     }
 
-    // 将RGB数组转换为十六进制颜色
     function rgbToHex(rgb) {
       return '#' + rgb.map(x => {
         const hex = Math.round(x).toString(16);
@@ -507,7 +496,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }).join('');
     }
 
-    // 在两个颜色之间插值
     function interpolateColor(color1, color2, factor) {
       const rgb1 = hexToRgb(color1);
       const rgb2 = hexToRgb(color2);
@@ -526,7 +514,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const deltaTime = currentTime - lastTime;
       lastTime = currentTime;
 
-      // 更新进度
       progress += deltaTime / transitionDuration;
 
       if (progress >= 1) {
@@ -538,17 +525,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentColors = colors[currentIndex];
       const nextColors = colors[nextIndex];
 
-      // 插值计算当前颜色
       const purple = interpolateColor(currentColors.purple, nextColors.purple, progress);
       const cyan = interpolateColor(currentColors.cyan, nextColors.cyan, progress);
       const yellow = interpolateColor(currentColors.yellow, nextColors.yellow, progress);
 
-      // 更新 CSS 变量
       root.style.setProperty('--purple', purple);
       root.style.setProperty('--cyan', cyan);
       root.style.setProperty('--yellow', yellow);
 
-      // 更新渐变文字效果
       const gradientText = document.querySelector('.gradient-text');
       if (gradientText) {
         gradientText.style.background = `linear-gradient(135deg, ${purple}, ${cyan}, ${yellow})`;
@@ -559,14 +543,12 @@ document.addEventListener('DOMContentLoaded', () => {
         gradientText.style.boxShadow = 'none';
       }
 
-      // 更新头像边框和阴影
       const avatar = document.querySelector('.avatar');
       if (avatar) {
         avatar.style.borderColor = purple;
         avatar.style.boxShadow = `0 0 15px ${purple}80`;
       }
 
-      // 更新粒子颜色
       const particles = document.querySelectorAll('.particle');
       particles.forEach((p, i) => {
         const hue = ((currentIndex + progress) * 90 + i * 30) % 360;
@@ -576,17 +558,14 @@ document.addEventListener('DOMContentLoaded', () => {
       animationId = requestAnimationFrame(animate);
     }
 
-    // 初始设置
     const initialColors = colors[0];
     root.style.setProperty('--purple', initialColors.purple);
     root.style.setProperty('--cyan', initialColors.cyan);
     root.style.setProperty('--yellow', initialColors.yellow);
 
-    // 开始持续渐变动画
     animationId = requestAnimationFrame(animate);
   }
 
-  // 在首页执行颜色动画
   if (document.querySelector('.hero')) {
     animateColors();
   }

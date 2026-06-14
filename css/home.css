@@ -531,7 +531,7 @@
   transform: translateY(-8px) scale(1.02);
   background: linear-gradient(135deg, rgba(131, 58, 180, 0.2) 0%, rgba(253, 29, 29, 0.1) 100%);
   border-color: rgba(131, 58, 180, 0.5);
-  box-shadow: 
+  box-shadow:
     0 15px 40px rgba(131, 58, 180, 0.3),
     0 0 30px rgba(131, 58, 180, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -680,6 +680,11 @@
 .music-section {
   padding: 60px 0;
   background: rgba(0, 0, 0, 0.3);
+  transition: background 0.5s ease;
+}
+
+[data-theme="light"] .music-section {
+  background: rgba(59, 130, 246, 0.05);
 }
 
 .music-section .container {
@@ -706,10 +711,22 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+[data-theme="light"] .music-player {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(236, 72, 153, 0.1) 50%, rgba(249, 115, 22, 0.1) 100%);
+  border-color: rgba(59, 130, 246, 0.2);
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
+}
+
 .music-player:hover {
-  box-shadow: 
+  box-shadow:
     0 12px 40px rgba(131, 58, 180, 0.4),
     0 0 40px rgba(131, 58, 180, 0.15);
+}
+
+[data-theme="light"] .music-player:hover {
+  box-shadow:
+    0 12px 40px rgba(59, 130, 246, 0.3),
+    0 0 40px rgba(59, 130, 246, 0.15);
 }
 
 /* 歌曲信息 */
@@ -734,8 +751,15 @@
 }
 
 @keyframes gradient-shift {
-  0%, 100% { filter: hue-rotate(0deg); }
-  50% { filter: hue-rotate(15deg); }
+
+  0%,
+  100% {
+    filter: hue-rotate(0deg);
+  }
+
+  50% {
+    filter: hue-rotate(15deg);
+  }
 }
 
 .song-artist {
@@ -760,9 +784,17 @@
   transition: all 0.3s ease;
 }
 
+[data-theme="light"] .progress-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
 .music-player:hover .progress-track {
   height: 10px;
   background: rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="light"] .music-player:hover .progress-track {
+  background: rgba(0, 0, 0, 0.15);
 }
 
 .progress-fill {
@@ -775,8 +807,16 @@
   transition: all 0.1s linear;
 }
 
+[data-theme="light"] .progress-fill {
+  background: linear-gradient(90deg, #3b82f6, #ec4899);
+}
+
 .music-player:hover .progress-fill {
   box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
+}
+
+[data-theme="light"] .music-player:hover .progress-fill {
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
 }
 
 .progress-thumb {
@@ -841,6 +881,14 @@
   overflow: hidden;
 }
 
+[data-theme="light"] .control-btn {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .control-btn::before {
+  background: rgba(0, 0, 0, 0.1);
+}
+
 .control-btn::before {
   content: '';
   position: absolute;
@@ -865,6 +913,11 @@
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
+[data-theme="light"] .control-btn:hover {
+  background: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
 .control-btn:active {
   transform: translateY(-1px) scale(0.95);
 }
@@ -878,11 +931,22 @@
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+[data-theme="light"] .play-btn {
+  background: linear-gradient(145deg, #3b82f6, #ec4899);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+}
+
 .play-btn:hover {
   transform: translateY(-3px) scale(1.08);
-  box-shadow: 
+  box-shadow:
     0 8px 25px rgba(102, 126, 234, 0.6),
     0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+[data-theme="light"] .play-btn:hover {
+  box-shadow:
+    0 8px 25px rgba(59, 130, 246, 0.5),
+    0 0 20px rgba(59, 130, 246, 0.3);
 }
 
 /* 播放按钮播放中状态 */
@@ -890,14 +954,35 @@
   animation: pulse-glow 1.5s ease-in-out infinite;
 }
 
+[data-theme="light"] .play-btn.playing {
+  animation: pulse-glow-light 1.5s ease-in-out infinite;
+}
+
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
   }
+
   50% {
-    box-shadow: 
+    box-shadow:
       0 4px 20px rgba(102, 126, 234, 0.6),
       0 0 30px rgba(102, 126, 234, 0.3);
+  }
+}
+
+@keyframes pulse-glow-light {
+
+  0%,
+  100% {
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  }
+
+  50% {
+    box-shadow:
+      0 4px 20px rgba(59, 130, 246, 0.5),
+      0 0 30px rgba(59, 130, 246, 0.3);
   }
 }
 
@@ -973,8 +1058,15 @@
 }
 
 @keyframes pulse-loading {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
 }
 
 .loading-spinner {
@@ -1011,43 +1103,43 @@
   .music-player {
     padding: 20px;
   }
-  
+
   .player-controls {
     gap: 15px;
   }
-  
+
   .song-title {
     font-size: 1.1rem;
   }
-  
+
   .song-artist {
     font-size: 0.85rem;
   }
-  
+
   .controls-row {
     gap: 12px;
   }
-  
+
   .control-btn {
     width: 40px;
     height: 40px;
     font-size: 0.9rem;
   }
-  
+
   .play-btn {
     width: 52px;
     height: 52px;
   }
-  
+
   .volume-control {
     gap: 6px;
     margin-left: 8px;
   }
-  
+
   .volume-control i {
     font-size: 0.85rem;
   }
-  
+
   .volume-control input[type="range"] {
     width: 50px;
   }

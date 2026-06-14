@@ -41,6 +41,20 @@
   margin-bottom: 12px;
   color: var(--text-main);
   line-height: 1.4;
+  text-shadow: 0 0 20px rgba(208, 0, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+[data-theme="light"] .note-card h3 {
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+}
+
+.note-card:hover h3 {
+  background: linear-gradient(135deg, var(--purple), var(--pink), var(--orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
 }
 
 .note-card p {
@@ -51,6 +65,11 @@
   line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.note-card:hover p {
+  color: var(--text-main);
 }
 
 .note-card .note-tags {
@@ -66,6 +85,11 @@
   border-radius: 15px;
   font-size: 0.75rem;
   color: var(--purple);
+  transition: all 0.3s ease;
+}
+
+.note-card:hover .note-tag {
+  background: rgba(106, 0, 255, 0.2);
 }
 
 .notes-sidebar {
@@ -81,6 +105,11 @@
   font-size: 1.3rem;
   margin-bottom: 20px;
   color: var(--text-main);
+  text-shadow: 0 0 20px rgba(208, 0, 255, 0.2);
+}
+
+[data-theme="light"] .notes-sidebar h3 {
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
 }
 
 .tag-cloud {
@@ -105,6 +134,7 @@
   background: linear-gradient(135deg, var(--purple), var(--pink));
   color: white;
   border-color: transparent;
+  box-shadow: var(--glow);
 }
 
 @media (max-width: 768px) {

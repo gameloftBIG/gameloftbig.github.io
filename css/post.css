@@ -1,14 +1,8 @@
-/* --------------------------------------------
-   文章页面样式
-   -------------------------------------------- */
-
-/* 文章区域 */
 .post-section {
   padding: 120px 0 100px;
   min-height: calc(100vh - 200px);
 }
 
-/* 文章容器 */
 .post-article {
   max-width: 800px;
   margin: 0 auto;
@@ -25,13 +19,13 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-/* 返回链接 */
 .back-link {
   display: inline-flex;
   align-items: center;
@@ -40,6 +34,7 @@
   font-size: 0.9rem;
   margin-bottom: 30px;
   transition: all 0.3s ease;
+  text-decoration: none;
 }
 
 .back-link:hover {
@@ -55,14 +50,12 @@
   transform: translateX(-3px);
 }
 
-/* 文章头部 */
 .post-header {
   margin-bottom: 40px;
   padding-bottom: 30px;
   border-bottom: 1px solid var(--glass-border);
 }
 
-/* 文章元信息 */
 .post-meta {
   display: flex;
   flex-wrap: wrap;
@@ -83,10 +76,20 @@
   transition: all 0.3s ease;
 }
 
+[data-theme="light"] .post-category,
+[data-theme="light"] .post-date {
+  background: rgba(59, 130, 246, 0.1);
+}
+
 .post-category:hover,
 .post-date:hover {
   background: rgba(106, 0, 255, 0.2);
   transform: translateY(-2px);
+}
+
+[data-theme="light"] .post-category:hover,
+[data-theme="light"] .post-date:hover {
+  background: rgba(59, 130, 246, 0.2);
 }
 
 .post-category i,
@@ -94,7 +97,6 @@
   color: var(--purple);
 }
 
-/* 文章标题 */
 .post-title {
   font-size: 2.5rem;
   font-weight: 700;
@@ -105,9 +107,13 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(208, 0, 255, 0.3);
 }
 
-/* 文章内容 */
+[data-theme="light"] .post-title {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
 .post-content {
   font-size: 1.1rem;
   line-height: 2;
@@ -118,6 +124,11 @@
   margin-bottom: 1.5em;
   text-indent: 2em;
   transition: all 0.3s ease;
+  text-shadow: 0 0 15px rgba(208, 0, 255, 0.1);
+}
+
+[data-theme="light"] .post-content p {
+  text-shadow: 0 0 12px rgba(59, 130, 246, 0.08);
 }
 
 .post-content p:first-child {
@@ -131,10 +142,20 @@
   margin-right: 10px;
   color: var(--purple);
   font-weight: 700;
+  text-shadow: 0 0 30px rgba(208, 0, 255, 0.5), 0 0 60px rgba(208, 0, 255, 0.3);
+}
+
+[data-theme="light"] .post-content p:first-child::first-letter {
+  text-shadow: 0 0 25px rgba(59, 130, 246, 0.4), 0 0 50px rgba(59, 130, 246, 0.2);
 }
 
 .post-content p:hover {
   color: var(--text-main);
+  text-shadow: 0 0 25px rgba(208, 0, 255, 0.2);
+}
+
+[data-theme="light"] .post-content p:hover {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
 }
 
 .post-content h2,
@@ -144,6 +165,13 @@
   margin-top: 2em;
   margin-bottom: 1em;
   font-weight: 600;
+  text-shadow: 0 0 20px rgba(208, 0, 255, 0.2);
+}
+
+[data-theme="light"] .post-content h2,
+[data-theme="light"] .post-content h3,
+[data-theme="light"] .post-content h4 {
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
 }
 
 .post-content h2 {
@@ -171,9 +199,17 @@
   transition: all 0.3s ease;
 }
 
+[data-theme="light"] .post-content blockquote {
+  background: rgba(59, 130, 246, 0.05);
+}
+
 .post-content blockquote:hover {
   background: rgba(106, 0, 255, 0.1);
   transform: translateX(5px);
+}
+
+[data-theme="light"] .post-content blockquote:hover {
+  background: rgba(59, 130, 246, 0.1);
 }
 
 .post-content img {
@@ -185,9 +221,17 @@
   transition: all 0.3s ease;
 }
 
+[data-theme="light"] .post-content img {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
 .post-content img:hover {
   transform: scale(1.02);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] .post-content img:hover {
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
 }
 
 .post-content a {
@@ -209,6 +253,10 @@
   font-family: var(--monospace);
   font-size: 0.9em;
   color: var(--purple);
+}
+
+[data-theme="light"] .post-content code {
+  background: rgba(59, 130, 246, 0.1);
 }
 
 .post-content pre {
@@ -235,6 +283,7 @@
 .post-content li {
   margin-bottom: 0.5em;
   color: var(--text-secondary);
+  transition: color 0.3s ease;
 }
 
 .post-content li:hover {
@@ -248,7 +297,6 @@
   margin: 3em 0;
 }
 
-/* 文章底部 */
 .post-footer {
   margin-top: 50px;
   padding-top: 30px;
@@ -261,6 +309,7 @@
   gap: 10px;
   font-size: 0.95rem;
   color: var(--text-secondary);
+  transition: color 0.3s ease;
 }
 
 .post-tags:hover {
@@ -287,37 +336,41 @@
   transition: all 0.3s ease;
 }
 
+[data-theme="light"] .share-btn {
+  background: rgba(0, 0, 0, 0.05);
+}
+
 .share-btn:hover {
   background: var(--purple);
   border-color: var(--purple);
   color: white;
   transform: translateY(-3px);
+  box-shadow: var(--glow);
 }
 
-/* 响应式设计 */
 @media (max-width: 768px) {
   .post-section {
     padding: 100px 0 60px;
   }
-  
+
   .post-article {
     padding: 30px 20px;
     border-radius: 0;
     margin: 0 -20px;
   }
-  
+
   .post-title {
     font-size: 1.8rem;
   }
-  
+
   .post-content {
     font-size: 1rem;
   }
-  
+
   .post-content p:first-child::first-letter {
     font-size: 2.5em;
   }
-  
+
   .post-meta {
     flex-direction: column;
     gap: 10px;
@@ -328,7 +381,7 @@
   .post-title {
     font-size: 1.5rem;
   }
-  
+
   .post-content p:first-child::first-letter {
     font-size: 2em;
   }

@@ -1,29 +1,28 @@
 :root {
-
   --bg: #070015;
-
   --card-bg: rgba(255, 255, 255, 0.06);
-
-  --glass-border:
-    rgba(255, 255, 255, 0.12);
-
+  --glass-border: rgba(255, 255, 255, 0.12);
   --text-main: #ffffff;
-
   --text-secondary: #b8b6d4;
-
   --purple: #6A00FF;
-
   --pink: #D000FF;
-
   --orange: #FF5E62;
-
   --cyan: #00CED1;
-
   --yellow: #FFD700;
-
-  --glow:
-    0 0 40px rgba(208, 0, 255, .35);
-
+  --glow: 0 0 40px rgba(208, 0, 255, .35);
   --radius: 20px;
+}
 
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --text-main: #1e1b4b;
+  --text-secondary: #64748b;
+  --purple: #3b82f6;
+  --pink: #ec4899;
+  --orange: #f97316;
+  --cyan: #14b8a6;
+  --yellow: #eab308;
+  --glow: 0 0 30px rgba(59, 130, 246, 0.3);
 }
