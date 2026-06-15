@@ -12,142 +12,8 @@
   <link rel="stylesheet" href="../css/global.css">
   <link rel="stylesheet" href="../css/navbar.css">
   <link rel="stylesheet" href="../css/post.css">
+  <link rel="stylesheet" href="../css/posts.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    .password-overlay {
-      display: flex;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--bg);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.3s ease;
-    }
-
-    .password-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .password-container {
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 400px;
-      width: 90%;
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .password-container h2 {
-      color: var(--text-main);
-      margin-bottom: 20px;
-      font-size: 1.5rem;
-    }
-
-    .password-container p {
-      color: var(--text-secondary);
-      margin-bottom: 30px;
-      font-size: 0.95rem;
-    }
-
-    .password-container .lock-icon {
-      font-size: 3rem;
-      color: var(--purple);
-      margin-bottom: 20px;
-      animation: pulse-lock 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse-lock {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.6;
-      }
-    }
-
-    .password-input {
-      width: 100%;
-      padding: 15px 20px;
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      color: var(--text-main);
-      font-size: 1rem;
-      outline: none;
-      transition: all 0.3s ease;
-      box-sizing: border-box;
-      margin-bottom: 20px;
-    }
-
-    [data-theme="light"] .password-input {
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    .password-input:focus {
-      border-color: var(--purple);
-      box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
-    }
-
-    .password-input::placeholder {
-      color: var(--text-secondary);
-    }
-
-    .password-btn {
-      width: 100%;
-      padding: 15px 30px;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      border: none;
-      border-radius: 12px;
-      color: white;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .password-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
-    }
-
-    .password-btn:active {
-      transform: translateY(0);
-    }
-
-    .error-message {
-      color: #ef4444;
-      font-size: 0.85rem;
-      margin-top: 15px;
-      opacity: 0;
-      transform: translateY(-10px);
-      transition: all 0.3s ease;
-    }
-
-    .error-message.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .post-content {
-      opacity: 0;
-      transition: opacity 0.5s ease;
-    }
-
-    .post-content.visible {
-      opacity: 1;
-    }
-  </style>
 </head>
 
 <body>
@@ -498,6 +364,18 @@
   </footer>
 
   <script>
+    // 密码解密函数 - 使用字符串反转和字符偏移
+    function decodePassword(encoded) {
+      // 第一步：Base64解码
+      let decoded = atob(encoded);
+      // 第二步：反转字符串
+      decoded = decoded.split('').reverse().join('');
+      // 第三步：字符位移（每个字符的ASCII码减3）
+      return decoded.split('').map(function (c) {
+        return String.fromCharCode(c.charCodeAt(0) - 3);
+      }).join('');
+    }
+
     // 密码保护功能
     document.addEventListener('DOMContentLoaded', function () {
       const passwordOverlay = document.getElementById('passwordOverlay');
@@ -505,10 +383,12 @@
       const passwordBtn = document.getElementById('passwordBtn');
       const errorMessage = document.getElementById('errorMessage');
       const postContent = document.getElementById('postContent');
-      const correctPassword = 'liuyating';
+      // 使用双重加密：Base64 + 反转 + 字符位移
+      const encodedPassword = 'anFsd2R8eGxv'; // 这是 "liuyating" 加密后的结果
+      const correctPassword = decodePassword(encodedPassword);
 
       // 检查是否已有cookie
-      const hasAccess = document.cookie.includes('post_access_A与B=granted');
+      const hasAccess = document.cookie.includes('post_access_AB_chat=granted');
       if (hasAccess) {
         passwordOverlay.classList.add('hidden');
         postContent.classList.add('visible');
@@ -520,7 +400,7 @@
         const input = passwordInput.value.trim();
         if (input === correctPassword) {
           // 设置cookie，有效期1小时
-          document.cookie = 'post_access_A与B=granted; max-age=3600; path=/';
+          document.cookie = 'post_access_AB_chat=granted; max-age=3600; path=/';
           passwordOverlay.classList.add('hidden');
           postContent.classList.add('visible');
           errorMessage.classList.remove('show');

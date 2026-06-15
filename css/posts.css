@@ -1,0 +1,322 @@
+/* ========================================
+   Posts 页面通用样式
+   ======================================== */
+
+/* 密码覆盖层 */
+.password-overlay {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+}
+
+.password-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 密码容器 */
+.password-container {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.password-container h2 {
+  color: var(--text-main);
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.password-container p {
+  color: var(--text-secondary);
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+.password-container .lock-icon {
+  font-size: 3rem;
+  color: var(--purple);
+  margin-bottom: 20px;
+  animation: pulse-lock 2s ease-in-out infinite;
+}
+
+@keyframes pulse-lock {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* 密码输入框 */
+.password-input {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+[data-theme="light"] .password-input {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.password-input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.password-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* 密码按钮 */
+.password-btn {
+  width: 100%;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, var(--purple), var(--pink));
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.password-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+}
+
+.password-btn:active {
+  transform: translateY(0);
+}
+
+/* 错误消息 */
+.error-message {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 15px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.error-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 文章内容淡入 */
+.post-content {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.post-content.visible {
+  opacity: 1;
+}
+
+/* ========================================
+   聊天记录样式
+   ======================================== */
+
+/* 聊天消息 */
+.chat-message {
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 8px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.chat-message.time-ruoying {
+  background: rgba(102, 126, 234, 0.15);
+  border-left: 3px solid #667eea;
+}
+
+.chat-message.time-zhuqingting {
+  background: rgba(236, 72, 153, 0.15);
+  border-left: 3px solid #ec4899;
+}
+
+[data-theme="light"] .chat-message.time-ruoying {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 3px solid #3b82f6;
+}
+
+[data-theme="light"] .chat-message.time-zhuqingting {
+  background: rgba(236, 72, 153, 0.1);
+  border-left: 3px solid #ec4899;
+}
+
+/* 聊天时间 */
+.chat-time {
+  color: rgba(180, 160, 200, 0.7);
+  font-size: 0.85rem;
+  margin-right: 10px;
+}
+
+[data-theme="light"] .chat-time {
+  color: #64748b;
+}
+
+/* 聊天名字 */
+.chat-name {
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.chat-name.ruoying {
+  color: #667eea;
+}
+
+.chat-name.zhuqingting {
+  color: #ec4899;
+}
+
+[data-theme="light"] .chat-name.ruoying {
+  color: #3b82f6;
+}
+
+[data-theme="light"] .chat-name.zhuqingting {
+  color: #db2777;
+}
+
+/* 聊天内容 */
+.chat-content {
+  color: var(--text-main);
+}
+
+/* 分段加载按钮样式 */
+.load-more-container {
+  text-align: center;
+  margin: 30px 0;
+  padding: 20px;
+}
+
+.load-more-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.load-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.load-more-btn:disabled {
+  background: rgba(100, 100, 100, 0.5);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+[data-theme="light"] .load-more-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+}
+
+[data-theme="light"] .load-more-btn:hover {
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.progress-info {
+  margin-top: 15px;
+  color: rgba(180, 160, 200, 0.7);
+  font-size: 0.9rem;
+}
+
+[data-theme="light"] .progress-info {
+  color: #64748b;
+}
+
+/* ========================================
+   按天数折叠列表样式
+   ======================================== */
+
+#dayListContainer {
+  margin-top: 30px;
+}
+
+.day-item {
+  margin-bottom: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  background-color: var(--card-bg);
+}
+
+.day-header {
+  padding: 15px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--header-bg);
+  transition: background-color 0.3s ease;
+}
+
+.day-header:hover {
+  background-color: var(--hover-bg);
+}
+
+.day-header span:first-child {
+  font-weight: bold;
+  font-size: 16px;
+  color: var(--text-main);
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+  color: var(--text-secondary);
+}
+
+.day-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+/* ========================================
+   说明文字样式
+   ======================================== */
+
+.chat-notice {
+  margin-bottom: 20px;
+  padding: 15px 20px;
+  background-color: rgba(102, 126, 234, 0.1);
+  border-radius: 10px;
+  border-left: 4px solid var(--purple);
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.chat-notice strong {
+  color: var(--text-main);
+}
