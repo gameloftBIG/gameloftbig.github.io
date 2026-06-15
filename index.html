@@ -8,6 +8,13 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
   <link rel="apple-touch-icon" href="favicon-512x512.png">
+  <script>
+    // 在CSS加载前设置主题，避免闪烁
+    const savedTheme = localStorage.getItem('siteData')
+      ? JSON.parse(localStorage.getItem('siteData')).theme
+      : 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/navbar.css">
