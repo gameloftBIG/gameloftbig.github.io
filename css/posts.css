@@ -184,6 +184,17 @@
   border-radius: 8px;
   line-height: 1.6;
   word-wrap: break-word;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.chat-message:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 15px rgba(120, 80, 180, 0.2);
+}
+
+[data-theme="light"] .chat-message:hover {
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.15);
 }
 
 .chat-message.time-ruoying {

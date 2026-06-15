@@ -35,12 +35,44 @@
       border-radius: var(--radius);
       padding: 50px;
       margin-bottom: 30px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(180, 130, 220, 0.5);
+      box-shadow: 0 15px 40px rgba(120, 80, 180, 0.2),
+        0 0 30px rgba(180, 130, 220, 0.1);
+      background: rgba(30, 15, 50, 0.8);
+    }
+
+    [data-theme="light"] .contact-card:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15),
+        0 0 30px rgba(59, 130, 246, 0.08);
     }
 
     .contact-card h2 {
       font-size: 1.8rem;
       margin-bottom: 30px;
       color: var(--text-main);
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover h2 {
+      background: linear-gradient(135deg, #d4b8ff 0%, #ffb8e8 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    [data-theme="light"] .contact-card:hover h2 {
+      background: linear-gradient(135deg, #1e40af 0%, #be185d 50%, #c2410c 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .contact-form {
@@ -96,6 +128,21 @@
       backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .info-item:hover {
+      transform: translateY(-5px);
+      border-color: rgba(180, 130, 220, 0.5);
+      box-shadow: 0 15px 30px rgba(120, 80, 180, 0.2);
+      background: rgba(30, 15, 50, 0.8);
+    }
+
+    [data-theme="light"] .info-item:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
     }
 
     .info-item i {
@@ -105,17 +152,47 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      transition: all 0.3s ease;
+    }
+
+    .info-item:hover i {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 15px rgba(180, 130, 220, 0.5));
     }
 
     .info-item h4 {
       color: var(--text-main);
       margin-bottom: 10px;
       font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .info-item:hover h4 {
+      background: linear-gradient(135deg, #d4b8ff 0%, #ffb8e8 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    [data-theme="light"] .info-item:hover h4 {
+      background: linear-gradient(135deg, #1e40af 0%, #be185d 50%, #c2410c 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .info-item p {
       color: var(--text-secondary);
       font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .info-item:hover p {
+      color: rgba(220, 200, 230, 1);
+    }
+
+    [data-theme="light"] .info-item:hover p {
+      color: #1e1b4b;
     }
 
     .info-item a {

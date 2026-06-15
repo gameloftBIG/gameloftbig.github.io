@@ -516,6 +516,22 @@
   font-size: 1.3rem;
   margin-bottom: 15px;
   color: var(--text-main);
+  transition: all 0.3s ease;
+}
+
+/* 卡片悬停时标题渐变效果 */
+.featured-card:hover h3 {
+  background: linear-gradient(135deg, #d4b8ff 0%, #ffb8e8 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+[data-theme="light"] .featured-card:hover h3 {
+  background: linear-gradient(135deg, #1e40af 0%, #be185d 50%, #c2410c 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* 卡片描述文字 */
@@ -523,6 +539,16 @@
   color: var(--text-secondary);
   margin-bottom: 20px;
   font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+/* 卡片悬停时描述文字变亮 */
+.featured-card:hover p {
+  color: rgba(220, 200, 230, 1);
+}
+
+[data-theme="light"] .featured-card:hover p {
+  color: #1e1b4b;
 }
 
 /* 卡片元信息（日期、标签） */
@@ -533,6 +559,16 @@
   align-items: center;
   color: var(--text-secondary);
   font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+/* 卡片悬停时元信息变亮 */
+.featured-card:hover .meta {
+  color: rgba(200, 180, 220, 1);
+}
+
+[data-theme="light"] .featured-card:hover .meta {
+  color: #1e1b4b;
 }
 
 /* --------------------------------------------

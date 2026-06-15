@@ -35,12 +35,44 @@
       border-radius: var(--radius);
       padding: 50px;
       margin-bottom: 30px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .about-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(180, 130, 220, 0.5);
+      box-shadow: 0 15px 40px rgba(120, 80, 180, 0.2),
+        0 0 30px rgba(180, 130, 220, 0.1);
+      background: rgba(30, 15, 50, 0.8);
+    }
+
+    [data-theme="light"] .about-card:hover {
+      background: rgba(255, 255, 255, 0.95);
+      border-color: rgba(59, 130, 246, 0.4);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.15),
+        0 0 30px rgba(59, 130, 246, 0.08);
     }
 
     .about-card h2 {
       font-size: 1.8rem;
       margin-bottom: 25px;
       color: var(--text-main);
+      transition: all 0.3s ease;
+    }
+
+    .about-card:hover h2 {
+      background: linear-gradient(135deg, #d4b8ff 0%, #ffb8e8 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    [data-theme="light"] .about-card:hover h2 {
+      background: linear-gradient(135deg, #1e40af 0%, #be185d 50%, #c2410c 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .about-card p {
@@ -48,6 +80,33 @@
       line-height: 1.8;
       margin-bottom: 20px;
       font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .about-card:hover p {
+      color: rgba(220, 200, 230, 1);
+    }
+
+    [data-theme="light"] .about-card:hover p {
+      color: #1e1b4b;
+    }
+
+    .about-card ul {
+      transition: all 0.3s ease;
+    }
+
+    .about-card ul li {
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .about-card:hover ul li {
+      color: rgba(220, 200, 230, 1);
+    }
+
+    [data-theme="light"] .about-card:hover ul li {
+      color: #1e1b4b;
     }
 
     .profile-img {
@@ -149,36 +208,36 @@
         <div class="about-card fade-in text-center">
           <div class="profile-img"></div>
           <h1 class="gradient-text" style="font-size: 2.5rem; margin-bottom: 20px;">关于若滢</h1>
-          <p>柔而不折，澈而不寒。我希望通过这个网站与大家分享我的故事、心得和感悟。</p>
+          <p style="text-align: right;">——柔而不折，澈而不寒。</p>
+
+
         </div>
 
         <div class="about-card fade-in delay-1">
-          <h2><i class="fas fa-heart" style="margin-right: 10px; color: var(--pink);"></i>关于我</h2>
-          <p>大家好，我是 RuoYing。我相信生活中的每一个小细节都值得被记录和珍藏。无论是一次旅行、一本书、还是一顿美食，都能带给我们不同的感受和启发。</p>
-          <p>这个网站是我的个人空间，在这里我会分享：</p>
+          <h2><i class="fas fa-heart" style="margin-right: 10px; color: var(--pink);"></i>关于这个网站</h2>
+          <p>这个网站是我的个人多元宇宙的一瞥，我的生活、学习和工作会被分享在这里，不会说全是积极的色彩，也会有负向的内容。</p>
+          <p>我希望能通过这个网站记录我的轨迹，分享我的生活。若有幸让你看到，并了解，或者说窥见我生活的一角，我会很开心。</p>
+          <p>最初我创建它的目的，是为了存放我的所见所感，或者方便我查看学习笔记，当然也想过作为我的个人名片，我不知道我可以把我的网站发展到哪里，拭目以待吧。</p>
+          <p>目前这个站点的内容包括：</p>
           <ul style="color: var(--text-secondary); margin-left: 20px; margin-top: 10px;">
-            <li>✦ 生活随笔和感悟</li>
-            <li>✦ 技术学习笔记</li>
-            <li>✦ 读书心得和推荐</li>
-            <li>✦ 旅行照片和故事</li>
+            <li>✦ 生活思绪</li>
+            <li>✦ 学习笔记</li>
+            <li>✦ 读书心得</li>
+            <li>✦ 旅行照片</li>
           </ul>
         </div>
 
         <div class="about-card fade-in delay-2">
-          <h2><i class="fas fa-code" style="margin-right: 10px; color: var(--purple);"></i>技能与爱好</h2>
-          <p>我热爱学习和探索新事物，以下是我的一些技能和爱好：</p>
-          <div class="skills-grid">
-            <div class="skill-item">基础学科</div>
-            <div class="skill-item">听音乐</div>
-            <div class="skill-item">摄影</div>
-            <div class="skill-item">交友</div>
-            <div class="skill-item">阅读</div>
-          </div>
+          <h2><i class="fas fa-code" style="margin-right: 10px; color: var(--purple);"></i>关于我</h2>
+          <p>我习惯做观察者，尝试观察这个世界，不仅是物质的，也是精神的。</p>
+          <p>我喜欢去经历新鲜的事物，去探索生命力，去提升自己。</p>
+          <p>我是一个生活着，挣扎着，尝试着，改变着的普通人。</p>
+          <p>我喜欢去帮助需要帮助的人，或许有时这种欲望太强了，会反噬自身。但我还是很高兴，我是帮到了一些人的。</p>
+          <p>我喜欢的内容，其实和我熟悉的人都了解了，不过再说一次比较好。我喜欢听歌，看书，求知，和玩玩轻松的游戏。</p>
         </div>
 
-        <div class="about-card fade-in delay-3">
-          <h2><i class="fas fa-lightbulb" style="margin-right: 10px; color: var(--orange);"></i>我的信念</h2>
-          <p>柔而不折，澈而不寒。</p>
+        <div class="about-card fade-in delay-4">
+          <h2><i class="fas fa-lightbulb" style="margin-right: 10px; color: var(--orange);"></i>放在最后</h2>
           <p>希望你能在这个网站找到一些有用的内容，或者只是感受到一丝温暖。感谢你的来访！</p>
         </div>
       </div>
