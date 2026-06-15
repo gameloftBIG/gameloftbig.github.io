@@ -33,6 +33,37 @@
   width: 90%;
   text-align: center;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+/* 返回按钮 */
+.password-back-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+[data-theme="light"] .password-back-btn {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.password-back-btn:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="light"] .password-back-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .password-container h2 {
@@ -334,25 +365,38 @@
 
 @media screen and (max-width: 768px) {
 
-  /* 密码容器移动端适配 */
+  /* 密码覆盖层移动端适配 */
   .password-overlay {
-    padding: 20px;
+    padding: 15px;
+    align-items: flex-start;
+    padding-top: 80px;
   }
 
+  /* 密码容器移动端适配 */
   .password-container {
     padding: 30px 20px;
-    width: 95%;
+    padding-top: 50px;
+    width: 100%;
     max-width: none;
     border-radius: 15px;
+    margin: 0;
+  }
+
+  /* 返回按钮移动端适配 */
+  .password-back-btn {
+    top: 10px;
+    left: 10px;
+    padding: 10px 15px;
+    font-size: 1rem;
   }
 
   .password-container h2 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 15px;
   }
 
   .password-container p {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-bottom: 20px;
   }
 
@@ -361,17 +405,22 @@
     margin-bottom: 15px;
   }
 
-  /* 密码输入框移动端适配 */
+  /* 密码输入框移动端适配 - 关键修复 */
   .password-input {
-    padding: 12px 15px;
-    font-size: 16px;
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px !important;
     /* 防止iOS自动缩放 */
     border-radius: 10px;
+    margin-bottom: 15px;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   /* 密码按钮移动端适配 */
   .password-btn {
-    padding: 12px 25px;
+    width: 100%;
+    padding: 14px 20px;
     font-size: 16px;
     border-radius: 10px;
   }
@@ -379,6 +428,7 @@
   /* 错误消息移动端适配 */
   .error-message {
     font-size: 0.8rem;
+    margin-top: 10px;
   }
 
   /* 折叠列表移动端适配 */
@@ -404,5 +454,36 @@
   .chat-notice {
     padding: 12px 15px;
     font-size: 13px;
+  }
+}
+
+/* 超小屏幕适配 (小于 375px) */
+@media screen and (max-width: 375px) {
+  .password-overlay {
+    padding: 10px;
+    padding-top: 60px;
+  }
+
+  .password-container {
+    padding: 25px 15px;
+    padding-top: 45px;
+    border-radius: 12px;
+  }
+
+  .password-back-btn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .password-container h2 {
+    font-size: 1.1rem;
+  }
+
+  .password-input {
+    padding: 12px 14px;
+  }
+
+  .password-btn {
+    padding: 12px 16px;
   }
 }
