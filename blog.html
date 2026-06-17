@@ -52,12 +52,13 @@
 
       <div class="category-filter fade-in delay-2">
         <button class="active" data-category="all">全部</button>
-        <button data-category="tech">技术分享</button>
+        <button data-category="life">生活感悟</button>
+        <button data-category="friendship">友情故事</button>
       </div>
 
       <div class="blog-grid">
         <!-- 6.17杂记 -->
-        <article class="blog-card" onclick="window.location.href='posts/6.17杂记.html'">
+        <article class="blog-card" data-category="life" onclick="window.location.href='posts/6.17杂记.html'">
           <div class="blog-image" style="background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);">
             <div class="blog-image-overlay">
               <i class="fas fa-pen-fancy"></i>
@@ -74,7 +75,7 @@
         </article>
 
         <!-- 加密文章：往事 -->
-        <article class="blog-card locked" onclick="window.location.href='posts/往事.html'">
+        <article class="blog-card locked" data-category="friendship" onclick="window.location.href='posts/往事.html'">
           <div class="blog-image" style="background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);">
             <div class="blog-image-overlay">
               <i class="fas fa-lock"></i>
@@ -95,7 +96,8 @@
         </article>
 
         <!-- 加密文章：谈话记录 -->
-        <article class="blog-card locked" onclick="window.location.href='posts/A与B的一段谈话记录.html'">
+        <article class="blog-card locked" data-category="friendship"
+          onclick="window.location.href='posts/A与B的一段谈话记录.html'">
           <div class="blog-image" style="background: linear-gradient(135deg, #f97316 0%, #ec4899 100%);">
             <div class="blog-image-overlay">
               <i class="fas fa-lock"></i>
@@ -116,7 +118,7 @@
         </article>
 
         <!-- 六级考试文章 -->
-        <article class="blog-card" onclick="window.location.href='posts/纪念电池毁了我的第一次六级考试.html'">
+        <article class="blog-card" data-category="life" onclick="window.location.href='posts/纪念电池毁了我的第一次六级考试.html'">
           <div class="blog-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
             <div class="blog-image-overlay">
               <i class="fas fa-cloud-rain"></i>
