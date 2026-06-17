@@ -237,9 +237,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const totalTimeEl = document.getElementById('totalTime');
   const volumeSlider = document.getElementById('volumeSlider');
   const loadingIndicator = document.getElementById('loadingIndicator');
+  const songTitle = document.querySelector('.song-title');
+  const songArtist = document.querySelector('.song-artist');
 
   const FADE_DURATION = 1000;
   const FADE_INTERVAL = 50;
+
+  // 播放列表
+  const playlist = [
+    {
+      title: 'How to Love',
+      artist: 'Cash Cash & Sofia Reyes',
+      src: 'music/How to Love (feat. Sofia Reyes) - Cash Cash、Sofia Reyes.mp3'
+    },
+    {
+      title: '一个人想着一个人',
+      artist: '曾沛慈',
+      src: 'https://gitee.com/ruoying0524/ruoying0524/raw/master/yigerenxiangzhelingyigeren.mp3'
+    }
+  ];
+
+  let currentSongIndex = 0;
 
   function fadeIn() {
     const targetVolume = volumeSlider.value / 100;
@@ -276,7 +294,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }, FADE_INTERVAL);
   }
 
+  // 切换到指定歌曲
+  function switchSong(index) {
+    currentSongIndex = index;
+    const song = playlist[currentSongIndex];
+    audioPlayer.src = song.src;
+    songTitle.textContent = song.title;
+    songArtist.textContent = song.artist;
+  }
+
+  // 播放下一首
+  function playNext() {
+    const nextIndex = (currentSongIndex + 1) % playlist.length;
+    fadeOut(() => {
+      switchSong(nextIndex);
+      fadeIn();
+      audioPlayer.play();
+      playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      playBtn.classList.add('playing');
+    });
+  }
+
+  // 播放上一首
+  function playPrev() {
+    const prevIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+    fadeOut(() => {
+      switchSong(prevIndex);
+      if (!audioPlayer.paused) {
+        fadeIn();
+        audioPlayer.play();
+      }
+    });
+  }
+
   if (audioPlayer) {
+    // 初始化播放器，设置第一首歌
+    const initSong = playlist[currentSongIndex];
+    audioPlayer.src = initSong.src;
+    songTitle.textContent = initSong.title;
+    songArtist.textContent = initSong.artist;
+
     playBtn.addEventListener('click', () => {
       if (audioPlayer.paused) {
         fadeIn();
@@ -293,29 +350,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     prevBtn.addEventListener('click', () => {
-      if (!audioPlayer.paused) {
-        fadeOut(() => {
-          audioPlayer.currentTime = 0;
-          fadeIn();
-        });
-      } else {
-        audioPlayer.currentTime = 0;
-      }
+      playPrev();
     });
 
     nextBtn.addEventListener('click', () => {
-      if (!audioPlayer.paused) {
-        fadeOut(() => {
-          audioPlayer.currentTime = 0;
-          fadeIn();
-          audioPlayer.play();
-        });
-      } else {
-        audioPlayer.currentTime = 0;
-        fadeIn();
-        audioPlayer.play();
-        playBtn.innerHTML = '<i class="fas fa-pause"></i>';
-      }
+      playNext();
     });
 
     audioPlayer.addEventListener('timeupdate', () => {
@@ -338,7 +377,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     audioPlayer.addEventListener('error', () => {
       loadingIndicator.classList.remove('active');
-      console.error('音频加载失败');
+      console.error('音频加载失败:', audioPlayer.error ? audioPlayer.error.code : '未知错误');
+      console.error('当前尝试加载的URL:', audioPlayer.src);
+      // 尝试播放下一首
+      if (currentSongIndex < playlist.length - 1) {
+        playNext();
+      }
     });
 
     progressTrack.addEventListener('click', (e) => {
@@ -361,9 +405,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     audioPlayer.addEventListener('ended', () => {
-      fadeOut();
-      playBtn.innerHTML = '<i class="fas fa-play"></i>';
-      playBtn.classList.remove('playing');
+      // 自动播放下一首
+      playNext();
     });
   }
 

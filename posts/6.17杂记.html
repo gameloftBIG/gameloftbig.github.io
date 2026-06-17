@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6.17杂记 - 若滢</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon-512x512.png">
+  <link rel="apple-touch-icon" href="favicon-512x512.png">
+  <script>
+    const savedTheme = localStorage.getItem('siteData')
+      ? JSON.parse(localStorage.getItem('siteData')).theme
+      : 'dark';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  </script>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/post.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <img src="../favicon-512x512.png" alt="Avatar" class="avatar">
+        <span>R</span><span class="logo-text">uoYing</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html">首页</a></li>
+        <li><a href="../about.html">关于</a></li>
+        <li><a href="../blog.html" class="active">思绪</a></li>
+        <li><a href="../notes.html">笔记</a></li>
+        <li><a href="../gallery.html">相册</a></li>
+        <li><a href="../contact.html">联系</a></li>
+        <li><button class="theme-toggle" aria-label="切换主题"><i class="fas fa-sun"></i></button></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section class="post-section">
+    <div class="container">
+      <article class="post-article">
+        <header class="post-header">
+          <a href="../blog.html" class="back-link"><i class="fas fa-arrow-left"></i> 返回思绪</a>
+          <div class="post-meta">
+            <span class="post-category"><i class="fas fa-tag"></i> 生活感悟</span>
+            <span class="post-date"><i class="far fa-calendar"></i> 2026年6月17日</span>
+          </div>
+          <h1 class="post-title">6.17杂记</h1>
+        </header>
+
+        <div class="post-content">
+          <p>今天和朋友聊天，向她透露了自己的焦虑，得出结论：我害怕被冷落。似乎是显而易见的结论，它根植于心，我以为自己可以克服，但只有再次受到刺激，才知道，我还是害怕被忽视😔。</p>
+          <p>其实我还是不会交朋友，处理关系的能力还有待提高。</p>
+          <p>有时想把自己包围在繁多的事务中，忘记这些烦恼，但老实说，这样不行，还是得去面对它们。</p>
+          <p>如你所见，我是观察者，但不擅长写文字做演讲者。有时候是想写点内容的，但是一开始，就没有了头绪，不知道要写点什么。或者说，想的太多，不知道从何开始，哪个都想谈谈。可碍于时间和精力，我又只能从简处理，写点随意的文字，大概会让读者云里雾里，其实这还算好的。你像我把文章扔在这里，能看到的人真的不会多。</p>
+        </div>
+
+        <footer class="post-footer">
+          <div class="post-tags">
+            <span>杂记</span>
+            <span>感悟</span>
+          </div>
+        </footer>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="padding: 50px 20px; text-align: center; border-top: 1px solid var(--glass-border);">
+      <p>&copy; 2026 若滢. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/shooting-stars.js"></script>
+</body>
+
+</html>
