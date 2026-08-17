@@ -119,26 +119,49 @@
   }
 
   /**
-   * 全局点击事件委托（捕获阶段）
-   * 使用捕获阶段确保在所有冒泡阶段的 stopPropagation 之前执行
+   * 全局事件委托（捕获阶段）
+   * 同时绑定 touchend 和 click：移动端优先用 touchend，桌面端用 click
+   * 用 touchHandled 标志防止移动端 touchend + click 双重触发
    */
+  var touchHandled = false;
+
   function setupGlobalClickDelegation() {
-    document.addEventListener('click', function (e) {
-      // 关闭按钮：点击关闭按钮或其子元素
+    // touchend：移动端首选，手指抬起即触发，不依赖 click 生成
+    document.addEventListener('touchend', function (e) {
       var closeEl = e.target.closest('.outline-drawer-close');
       if (closeEl) {
-        e.preventDefault();
-        e.stopPropagation();
+        touchHandled = true;
         closeDrawer();
         return;
       }
 
-      // 遮罩层：仅当点击遮罩层本身时关闭（不是其子元素）
+      if (e.target === overlay && isDrawerOpen) {
+        touchHandled = true;
+        closeDrawer();
+        return;
+      }
+    }, true);
+
+    // click：桌面端主力 + 移动端后备
+    document.addEventListener('click', function (e) {
+      // 移动端 touchend 已处理，跳过本次 click
+      if (touchHandled) {
+        touchHandled = false;
+        return;
+      }
+
+      var closeEl = e.target.closest('.outline-drawer-close');
+      if (closeEl) {
+        e.preventDefault();
+        closeDrawer();
+        return;
+      }
+
       if (e.target === overlay && isDrawerOpen) {
         closeDrawer();
         return;
       }
-    }, true); // 捕获阶段：从 document 向下传播时触发
+    }, true);
   }
 
   /**
