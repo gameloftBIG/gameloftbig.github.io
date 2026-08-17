@@ -170,6 +170,7 @@
   justify-content: center;
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .outline-fab:hover {
@@ -195,8 +196,10 @@
   padding: 20px 20px 30px;
   z-index: 960;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   transform: translateY(100%);
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .outline-drawer.outline-drawer-open {
@@ -219,8 +222,8 @@
 }
 
 .outline-drawer-close {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--glass-border);
@@ -229,8 +232,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   transition: all 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+  flex-shrink: 0;
 }
 
 [data-theme="light"] .outline-drawer-close {
@@ -243,9 +248,8 @@
   border-color: var(--orange);
 }
 
-/* 遮罩层 */
+/* 遮罩层 - 使用 visibility 代替 display 以支持过渡和点击事件 */
 .outline-overlay {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -254,16 +258,18 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 955;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .outline-overlay.outline-overlay-show {
-  display: block;
   opacity: 1;
+  visibility: visible;
 }
 
 /* ========================================
-   响应式：768px 以下切换为移动端模式
+   响应式：1100px 以下切换为移动端模式
    ======================================== */
 @media (max-width: 1100px) {
   .outline-sidebar {
@@ -276,9 +282,5 @@
 
   .outline-drawer {
     display: block;
-  }
-
-  .outline-overlay {
-    display: none;
   }
 }

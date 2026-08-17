@@ -20,6 +20,7 @@
 
   var headings = [];
   var outlineLinks = [];
+  var isDrawerOpen = false;
 
   /** DOM 引用 */
   var sidebar, fab, drawer, overlay;
@@ -91,6 +92,7 @@
     // 遮罩层
     overlay = document.createElement('div');
     overlay.className = 'outline-overlay';
+    // 同时绑定 click 和 touchend 以兼容移动端
     overlay.addEventListener('click', closeDrawer);
     document.body.appendChild(overlay);
 
@@ -112,26 +114,54 @@
     html += '</ul>';
 
     drawer.innerHTML = html;
-    drawer.querySelector('.outline-drawer-close').addEventListener('click', closeDrawer);
     document.body.appendChild(drawer);
+
+    // 关闭按钮：绑定 click 事件，阻止冒泡
+    var closeBtn = drawer.querySelector('.outline-drawer-close');
+    closeBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      closeDrawer();
+    });
+
+    // 点击抽屉内部时阻止事件冒泡到遮罩层
+    drawer.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
   }
 
   /**
    * 打开移动端抽屉
    */
   function openDrawer() {
+    if (isDrawerOpen) return;
+    isDrawerOpen = true;
     drawer.classList.add('outline-drawer-open');
     overlay.classList.add('outline-overlay-show');
+    // iOS Safari 兼容：使用 position fixed 阻止背景滚动
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.top = '-' + window.pageYOffset + 'px';
   }
 
   /**
    * 关闭移动端抽屉
    */
   function closeDrawer() {
+    if (!isDrawerOpen) return;
+    isDrawerOpen = false;
     drawer.classList.remove('outline-drawer-open');
     overlay.classList.remove('outline-overlay-show');
+
+    // 恢复 iOS Safari 的滚动状态
+    var scrollTop = parseFloat(document.body.style.top || '0') * -1;
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.width = '';
+    document.body.style.top = '';
+    if (scrollTop > 0) {
+      window.scrollTo(0, scrollTop);
+    }
   }
 
   /**
@@ -143,6 +173,7 @@
     allLinks.forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
+        e.stopPropagation();
         var index = parseInt(link.getAttribute('data-index'));
         var target = headings[index];
         if (!target) return;
