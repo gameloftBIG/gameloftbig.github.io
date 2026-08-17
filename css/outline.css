@@ -1,0 +1,284 @@
+/* ========================================
+   章节大纲组件 (Outline / TOC)
+   匹配网站现有深色/浅色主题
+   ======================================== */
+
+/* 桌面端：固定在右侧的侧边栏 */
+.outline-sidebar {
+  position: fixed;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  width: 260px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  padding: 20px 18px;
+  z-index: 900;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.outline-sidebar.outline-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%) translateX(30px);
+}
+
+/* 大纲标题 */
+.outline-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--glass-border);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.outline-title i {
+  color: var(--purple);
+  font-size: 0.9rem;
+}
+
+/* 大纲列表 */
+.outline-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.outline-list li {
+  margin: 0;
+  padding: 0;
+}
+
+.outline-link {
+  display: block;
+  padding: 6px 10px;
+  margin-bottom: 2px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.outline-link:hover {
+  color: var(--text-main);
+  background: rgba(106, 0, 255, 0.08);
+  border-left-color: var(--purple);
+}
+
+[data-theme="light"] .outline-link:hover {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+/* 当前激活的大纲项 */
+.outline-link.outline-active {
+  color: var(--pink);
+  font-weight: 600;
+  background: rgba(208, 0, 255, 0.1);
+  border-left-color: var(--pink);
+  box-shadow: 0 0 15px rgba(208, 0, 255, 0.15);
+}
+
+[data-theme="light"] .outline-link.outline-active {
+  color: var(--purple);
+  background: rgba(59, 130, 246, 0.1);
+  border-left-color: var(--purple);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.12);
+}
+
+/* 层级缩进 */
+.outline-link[data-level="2"] {
+  padding-left: 10px;
+  font-size: 0.85rem;
+}
+
+.outline-link[data-level="3"] {
+  padding-left: 24px;
+  font-size: 0.78rem;
+}
+
+.outline-link[data-level="4"] {
+  padding-left: 38px;
+  font-size: 0.75rem;
+}
+
+.outline-link[data-level="5"] {
+  padding-left: 52px;
+  font-size: 0.72rem;
+}
+
+.outline-link[data-level="6"] {
+  padding-left: 66px;
+  font-size: 0.7rem;
+}
+
+/* 滚动条样式 */
+.outline-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.outline-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.outline-sidebar::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+
+.outline-sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--purple);
+}
+
+/* ========================================
+   移动端：悬浮按钮 + 可折叠面板
+   ======================================== */
+.outline-fab {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 25px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  color: var(--purple);
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 950;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.outline-fab:hover {
+  background: var(--purple);
+  color: white;
+  transform: scale(1.1);
+  box-shadow: var(--glow);
+}
+
+/* 移动端抽屉面板 */
+.outline-drawer {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  max-height: 60vh;
+  background: var(--card-bg);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 20px 20px 30px;
+  z-index: 960;
+  overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.outline-drawer.outline-drawer-open {
+  transform: translateY(0);
+}
+
+.outline-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.outline-drawer-header .outline-title {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.outline-drawer-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+[data-theme="light"] .outline-drawer-close {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.outline-drawer-close:hover {
+  background: var(--orange);
+  color: white;
+  border-color: var(--orange);
+}
+
+/* 遮罩层 */
+.outline-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 955;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.outline-overlay.outline-overlay-show {
+  display: block;
+  opacity: 1;
+}
+
+/* ========================================
+   响应式：768px 以下切换为移动端模式
+   ======================================== */
+@media (max-width: 1100px) {
+  .outline-sidebar {
+    display: none;
+  }
+
+  .outline-fab {
+    display: flex;
+  }
+
+  .outline-drawer {
+    display: block;
+  }
+
+  .outline-overlay {
+    display: none;
+  }
+}
