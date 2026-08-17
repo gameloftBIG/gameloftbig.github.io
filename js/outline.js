@@ -1,34 +1,22 @@
 /**
  * 章节大纲组件 (Outline / TOC)
  * 自动解析文章内容中的标题（h2-h6），生成层级式大纲列表
- * 功能：锚点平滑滚动、滚动高亮、桌面端侧边栏、移动端折叠抽屉
- *
- * 使用方式：在页面底部引入此脚本即可自动初始化
- * 自动检测 .post-content 或 .note-content 容器中的标题
  */
 (function () {
   'use strict';
 
-  /** 配置项 */
   var config = {
     contentSelector: '.post-content, .note-content',
     headingSelector: 'h2, h3, h4, h5, h6',
-    scrollOffset: 100,        // 滚动偏移量（导航栏高度）
-    desktopBreakpoint: 1100,  // 桌面端断点
-    minHeadings: 2            // 最少标题数才显示大纲
+    scrollOffset: 100,
+    desktopBreakpoint: 1100,
+    minHeadings: 2
   };
 
   var headings = [];
-  var outlineLinks = [];
   var isDrawerOpen = false;
-  var savedScrollPos = 0;
-
-  /** DOM 引用 */
   var sidebar, fab, drawer, overlay;
 
-  /**
-   * 初始化
-   */
   function init() {
     var contentEl = document.querySelector(config.contentSelector);
     if (!contentEl) return;
@@ -36,11 +24,8 @@
     headings = Array.from(contentEl.querySelectorAll(config.headingSelector));
     if (headings.length < config.minHeadings) return;
 
-    // 为每个标题添加 id（如果没有的话）
     headings.forEach(function (heading, index) {
-      if (!heading.id) {
-        heading.id = 'heading-' + (index + 1);
-      }
+      if (!heading.id) heading.id = 'heading-' + (index + 1);
       heading.setAttribute('data-outline-index', index);
     });
 
@@ -48,19 +33,14 @@
     buildMobileDrawer();
     setupScrollSpy();
     setupSmoothScroll();
-    setupGlobalClickDelegation();
   }
 
-  /**
-   * 构建桌面端侧边栏
-   */
   function buildDesktopSidebar() {
     sidebar = document.createElement('nav');
     sidebar.className = 'outline-sidebar outline-hidden';
     sidebar.setAttribute('aria-label', '文章大纲');
 
-    var html = '<div class="outline-title"><i class="fas fa-list-ul"></i><span>目录</span></div>';
-    html += '<ul class="outline-list">';
+    var html = '<div class="outline-title"><i class="fas fa-list-ul"></i><span>目录</span></div><ul class="outline-list">';
     headings.forEach(function (heading, index) {
       var level = parseInt(heading.tagName.substring(1));
       var text = heading.textContent.trim();
@@ -71,30 +51,32 @@
     sidebar.innerHTML = html;
     document.body.appendChild(sidebar);
 
-    outlineLinks = Array.from(sidebar.querySelectorAll('.outline-link'));
-
-    // 延迟显示，避免页面加载闪烁
     setTimeout(function () {
       sidebar.classList.remove('outline-hidden');
     }, 500);
   }
 
   /**
-   * 构建移动端悬浮按钮和抽屉
+   * 构建移动端抽屉 — 全部使用 DOM API 创建，不依赖 innerHTML
+   * 确保事件监听器直接绑定到真实 DOM 节点
    */
   function buildMobileDrawer() {
     // 悬浮按钮
     fab = document.createElement('button');
     fab.className = 'outline-fab';
-    fab.setAttribute('type', 'button');
+    fab.type = 'button';
     fab.setAttribute('aria-label', '打开目录');
     fab.innerHTML = '<i class="fas fa-list-ul"></i>';
-    fab.addEventListener('click', openDrawer);
+    fab.addEventListener('click', function () {
+      console.log('[outline] FAB clicked');
+      openDrawer();
+    });
     document.body.appendChild(fab);
 
     // 遮罩层
     overlay = document.createElement('div');
     overlay.className = 'outline-overlay';
+    overlay.addEventListener('click', closeDrawer);
     document.body.appendChild(overlay);
 
     // 抽屉面板
@@ -102,103 +84,89 @@
     drawer.className = 'outline-drawer';
     drawer.setAttribute('aria-label', '文章大纲');
 
-    var html = '<div class="outline-drawer-header">';
-    html += '<div class="outline-title"><i class="fas fa-list-ul"></i><span>目录</span></div>';
-    html += '<button type="button" class="outline-drawer-close" aria-label="关闭目录"><i class="fas fa-times"></i></button>';
-    html += '</div>';
-    html += '<ul class="outline-list">';
-    headings.forEach(function (heading, index) {
-      var level = parseInt(heading.tagName.substring(1));
-      var text = heading.textContent.trim();
-      html += '<li><a class="outline-link" data-level="' + level + '" data-index="' + index + '" href="#' + heading.id + '" title="' + escapeHtml(text) + '">' + escapeHtml(text) + '</a></li>';
-    });
-    html += '</ul>';
+    // --- 用 DOM API 构建 header ---
+    var header = document.createElement('div');
+    header.className = 'outline-drawer-header';
 
-    drawer.innerHTML = html;
+    var titleDiv = document.createElement('div');
+    titleDiv.className = 'outline-title';
+    titleDiv.innerHTML = '<i class="fas fa-list-ul"></i><span>目录</span>';
+    header.appendChild(titleDiv);
+
+    // 关闭按钮 — DOM 创建 + 直接绑定事件
+    var closeBtn = document.createElement('button');
+    closeBtn.type = 'button';
+    closeBtn.className = 'outline-drawer-close';
+    closeBtn.setAttribute('aria-label', '关闭目录');
+    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+
+    // 核心：直接在 DOM 元素上绑定 click
+    closeBtn.addEventListener('click', function (e) {
+      console.log('[outline] close button clicked, isDrawerOpen =', isDrawerOpen);
+      e.preventDefault();
+      e.stopPropagation();
+      closeDrawer();
+      console.log('[outline] after closeDrawer, isDrawerOpen =', isDrawerOpen);
+    });
+
+    header.appendChild(closeBtn);
+    drawer.appendChild(header);
+
+    // --- 大纲列表 ---
+    var list = document.createElement('ul');
+    list.className = 'outline-list';
+    headings.forEach(function (heading, index) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.className = 'outline-link';
+      a.setAttribute('data-level', parseInt(heading.tagName.substring(1)));
+      a.setAttribute('data-index', index);
+      a.href = '#' + heading.id;
+      a.textContent = heading.textContent.trim();
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+    drawer.appendChild(list);
+
     document.body.appendChild(drawer);
   }
 
-  /**
-   * 全局事件委托（捕获阶段）
-   * 同时绑定 touchend 和 click：移动端优先用 touchend，桌面端用 click
-   * 用 touchHandled 标志防止移动端 touchend + click 双重触发
-   */
-  var touchHandled = false;
-
-  function setupGlobalClickDelegation() {
-    // touchend：移动端首选，手指抬起即触发，不依赖 click 生成
-    document.addEventListener('touchend', function (e) {
-      var closeEl = e.target.closest('.outline-drawer-close');
-      if (closeEl) {
-        touchHandled = true;
-        closeDrawer();
-        return;
-      }
-
-      if (e.target === overlay && isDrawerOpen) {
-        touchHandled = true;
-        closeDrawer();
-        return;
-      }
-    }, true);
-
-    // click：桌面端主力 + 移动端后备
-    document.addEventListener('click', function (e) {
-      // 移动端 touchend 已处理，跳过本次 click
-      if (touchHandled) {
-        touchHandled = false;
-        return;
-      }
-
-      var closeEl = e.target.closest('.outline-drawer-close');
-      if (closeEl) {
-        e.preventDefault();
-        closeDrawer();
-        return;
-      }
-
-      if (e.target === overlay && isDrawerOpen) {
-        closeDrawer();
-        return;
-      }
-    }, true);
-  }
-
-  /**
-   * 打开移动端抽屉
-   */
   function openDrawer() {
+    console.log('[outline] openDrawer() called, isDrawerOpen =', isDrawerOpen);
     if (isDrawerOpen) return;
     isDrawerOpen = true;
-    savedScrollPos = window.pageYOffset || document.documentElement.scrollTop;
 
     drawer.classList.add('outline-drawer-open');
     overlay.classList.add('outline-overlay-show');
-
-    // 锁定背景滚动（仅 overflow:hidden，避免 position:fixed 导致的布局问题）
+    drawer.style.transform = 'translateY(0)';
+    drawer.style.visibility = 'visible';
+    drawer.style.pointerEvents = 'auto';
+    overlay.style.opacity = '1';
+    overlay.style.visibility = 'visible';
     document.body.style.overflow = 'hidden';
   }
 
-  /**
-   * 关闭移动端抽屉
-   */
   function closeDrawer() {
+    console.log('[outline] closeDrawer() called, isDrawerOpen =', isDrawerOpen);
     if (!isDrawerOpen) return;
     isDrawerOpen = false;
 
     drawer.classList.remove('outline-drawer-open');
     overlay.classList.remove('outline-overlay-show');
-
-    // 恢复背景滚动
+    drawer.style.transform = 'translateY(100%)';
+    drawer.style.visibility = 'hidden';
+    drawer.style.pointerEvents = 'none';
+    overlay.style.opacity = '0';
+    overlay.style.visibility = 'hidden';
     document.body.style.overflow = '';
   }
 
-  /**
-   * 设置平滑滚动（点击大纲项）
-   */
+  // 全局暴露，供 onclick 调用
+  window.__closeOutlineDrawer = closeDrawer;
+
   function setupSmoothScroll() {
     var allLinks = document.querySelectorAll('.outline-link');
-    allLinks.forEach(function (link) {
+    Array.prototype.forEach.call(allLinks, function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
         var index = parseInt(link.getAttribute('data-index'));
@@ -207,14 +175,11 @@
 
         var rect = target.getBoundingClientRect();
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        var targetTop = rect.top + scrollTop - config.scrollOffset;
-
         window.scrollTo({
-          top: targetTop,
+          top: rect.top + scrollTop - config.scrollOffset,
           behavior: 'smooth'
         });
 
-        // 移动端：点击后关闭抽屉
         if (window.innerWidth <= config.desktopBreakpoint) {
           closeDrawer();
         }
@@ -222,10 +187,6 @@
     });
   }
 
-  /**
-   * 滚动监听：高亮当前视口内章节对应的大纲项
-   * 使用 scroll 事件 + getBoundingClientRect 判断
-   */
   var scrollTimer = null;
   function setupScrollSpy() {
     window.addEventListener('scroll', function () {
@@ -235,18 +196,13 @@
     updateActiveOutline();
   }
 
-  /**
-   * 更新激活的大纲项
-   */
   function updateActiveOutline() {
     var activeIndex = -1;
     var scrollPos = window.pageYOffset || document.documentElement.scrollTop;
 
-    // 找到当前视口中第一个标题
     for (var i = 0; i < headings.length; i++) {
       var rect = headings[i].getBoundingClientRect();
       var top = rect.top + window.pageYOffset - config.scrollOffset;
-
       if (scrollPos >= top - 10) {
         activeIndex = i;
       } else {
@@ -254,20 +210,16 @@
       }
     }
 
-    // 如果在文章顶部，激活第一项
     if (activeIndex === -1 && scrollPos < headings[0].offsetTop) {
       activeIndex = 0;
     }
-
     if (activeIndex === -1) return;
 
-    // 更新所有链接的激活状态
     var allLinks = document.querySelectorAll('.outline-link');
-    allLinks.forEach(function (link, idx) {
+    Array.prototype.forEach.call(allLinks, function (link) {
       var linkIndex = parseInt(link.getAttribute('data-index'));
       if (linkIndex === activeIndex) {
         link.classList.add('outline-active');
-        // 桌面端：将激活项滚动到侧边栏可视区域
         if (sidebar && link.closest('.outline-sidebar')) {
           var linkRect = link.getBoundingClientRect();
           var sidebarRect = sidebar.getBoundingClientRect();
@@ -281,16 +233,12 @@
     });
   }
 
-  /**
-   * HTML 转义
-   */
   function escapeHtml(text) {
     var div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   }
 
-  // DOM 加载完成后初始化
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

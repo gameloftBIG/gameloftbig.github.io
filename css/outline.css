@@ -198,12 +198,17 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   transform: translateY(100%);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.35s;
   -webkit-tap-highlight-color: transparent;
 }
 
 .outline-drawer.outline-drawer-open {
   transform: translateY(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
 }
 
 .outline-drawer-header {
