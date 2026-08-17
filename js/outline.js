@@ -21,6 +21,7 @@
   var headings = [];
   var outlineLinks = [];
   var isDrawerOpen = false;
+  var savedScrollPos = 0;
 
   /** DOM 引用 */
   var sidebar, fab, drawer, overlay;
@@ -47,6 +48,7 @@
     buildMobileDrawer();
     setupScrollSpy();
     setupSmoothScroll();
+    setupGlobalClickDelegation();
   }
 
   /**
@@ -84,6 +86,7 @@
     // 悬浮按钮
     fab = document.createElement('button');
     fab.className = 'outline-fab';
+    fab.setAttribute('type', 'button');
     fab.setAttribute('aria-label', '打开目录');
     fab.innerHTML = '<i class="fas fa-list-ul"></i>';
     fab.addEventListener('click', openDrawer);
@@ -92,8 +95,6 @@
     // 遮罩层
     overlay = document.createElement('div');
     overlay.className = 'outline-overlay';
-    // 同时绑定 click 和 touchend 以兼容移动端
-    overlay.addEventListener('click', closeDrawer);
     document.body.appendChild(overlay);
 
     // 抽屉面板
@@ -103,7 +104,7 @@
 
     var html = '<div class="outline-drawer-header">';
     html += '<div class="outline-title"><i class="fas fa-list-ul"></i><span>目录</span></div>';
-    html += '<button class="outline-drawer-close" aria-label="关闭目录"><i class="fas fa-times"></i></button>';
+    html += '<button type="button" class="outline-drawer-close" aria-label="关闭目录"><i class="fas fa-times"></i></button>';
     html += '</div>';
     html += '<ul class="outline-list">';
     headings.forEach(function (heading, index) {
@@ -115,18 +116,29 @@
 
     drawer.innerHTML = html;
     document.body.appendChild(drawer);
+  }
 
-    // 关闭按钮：绑定 click 事件，阻止冒泡
-    var closeBtn = drawer.querySelector('.outline-drawer-close');
-    closeBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      closeDrawer();
-    });
+  /**
+   * 全局点击事件委托（捕获阶段）
+   * 使用捕获阶段确保在所有冒泡阶段的 stopPropagation 之前执行
+   */
+  function setupGlobalClickDelegation() {
+    document.addEventListener('click', function (e) {
+      // 关闭按钮：点击关闭按钮或其子元素
+      var closeEl = e.target.closest('.outline-drawer-close');
+      if (closeEl) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeDrawer();
+        return;
+      }
 
-    // 点击抽屉内部时阻止事件冒泡到遮罩层
-    drawer.addEventListener('click', function (e) {
-      e.stopPropagation();
-    });
+      // 遮罩层：仅当点击遮罩层本身时关闭（不是其子元素）
+      if (e.target === overlay && isDrawerOpen) {
+        closeDrawer();
+        return;
+      }
+    }, true); // 捕获阶段：从 document 向下传播时触发
   }
 
   /**
@@ -135,13 +147,13 @@
   function openDrawer() {
     if (isDrawerOpen) return;
     isDrawerOpen = true;
+    savedScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
     drawer.classList.add('outline-drawer-open');
     overlay.classList.add('outline-overlay-show');
-    // iOS Safari 兼容：使用 position fixed 阻止背景滚动
+
+    // 锁定背景滚动（仅 overflow:hidden，避免 position:fixed 导致的布局问题）
     document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
-    document.body.style.top = '-' + window.pageYOffset + 'px';
   }
 
   /**
@@ -150,30 +162,22 @@
   function closeDrawer() {
     if (!isDrawerOpen) return;
     isDrawerOpen = false;
+
     drawer.classList.remove('outline-drawer-open');
     overlay.classList.remove('outline-overlay-show');
 
-    // 恢复 iOS Safari 的滚动状态
-    var scrollTop = parseFloat(document.body.style.top || '0') * -1;
+    // 恢复背景滚动
     document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.width = '';
-    document.body.style.top = '';
-    if (scrollTop > 0) {
-      window.scrollTo(0, scrollTop);
-    }
   }
 
   /**
    * 设置平滑滚动（点击大纲项）
    */
   function setupSmoothScroll() {
-    // 处理侧边栏和抽屉中的所有大纲链接
     var allLinks = document.querySelectorAll('.outline-link');
     allLinks.forEach(function (link) {
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        e.stopPropagation();
         var index = parseInt(link.getAttribute('data-index'));
         var target = headings[index];
         if (!target) return;
